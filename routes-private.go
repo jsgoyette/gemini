@@ -5,27 +5,6 @@ import (
 	"strconv"
 )
 
-// Active Orders
-func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
-
-	url := g.url + ACTIVE_ORDERS_URL
-	params := requestParams{
-		"request": ACTIVE_ORDERS_URL,
-		"nonce":   getNonce(),
-	}
-
-	var orders []Order
-
-	body, err := g.request("POST", url, params, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	json.Unmarshal(body, &orders)
-
-	return orders, nil
-}
-
 // Past Trades
 func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
 
@@ -49,6 +28,70 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 	json.Unmarshal(body, &trades)
 
 	return trades, nil
+}
+
+// Trade Volume
+func (g *GeminiAPI) TradeVolume() ([][]TradeVolume, error) {
+
+	url := g.url + TRADE_VOLUME_URL
+	params := requestParams{
+		"request": TRADE_VOLUME_URL,
+		"nonce":   getNonce(),
+	}
+
+	var volumes [][]TradeVolume
+
+	body, err := g.request("POST", url, params, nil)
+	if err != nil {
+		return volumes, err
+	}
+
+	json.Unmarshal(body, &volumes)
+
+	return volumes, nil
+}
+
+// Active Orders
+func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
+
+	url := g.url + ACTIVE_ORDERS_URL
+	params := requestParams{
+		"request": ACTIVE_ORDERS_URL,
+		"nonce":   getNonce(),
+	}
+
+	var orders []Order
+
+	body, err := g.request("POST", url, params, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	json.Unmarshal(body, &orders)
+
+	return orders, nil
+}
+
+// Order Status
+func (g *GeminiAPI) OrderStatus(orderId string) (Order, error) {
+
+	url := g.url + ORDER_STATUS_URL
+	params := requestParams{
+		"request":  ORDER_STATUS_URL,
+		"nonce":    getNonce(),
+		"order_id": orderId,
+	}
+
+	var order Order
+
+	body, err := g.request("POST", url, params, nil)
+	if err != nil {
+		return order, err
+	}
+
+	json.Unmarshal(body, &order)
+
+	return order, nil
 }
 
 // New Order
@@ -82,12 +125,12 @@ func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64
 	return order, nil
 }
 
-// Order Status
-func (g *GeminiAPI) OrderStatus(orderId string) (Order, error) {
+// Cancel Order
+func (g *GeminiAPI) CancelOrder(orderId string) (Order, error) {
 
-	url := g.url + ORDER_STATUS_URL
+	url := g.url + CANCEL_ORDER_URL
 	params := requestParams{
-		"request":  ORDER_STATUS_URL,
+		"request":  CANCEL_ORDER_URL,
 		"nonce":    getNonce(),
 		"order_id": orderId,
 	}
@@ -142,49 +185,6 @@ func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
 	json.Unmarshal(body, &res)
 
 	return res, nil
-}
-
-// Cancel Order
-func (g *GeminiAPI) CancelOrder(orderId string) (Order, error) {
-
-	url := g.url + CANCEL_ORDER_URL
-	params := requestParams{
-		"request":  CANCEL_ORDER_URL,
-		"nonce":    getNonce(),
-		"order_id": orderId,
-	}
-
-	var order Order
-
-	body, err := g.request("POST", url, params, nil)
-	if err != nil {
-		return order, err
-	}
-
-	json.Unmarshal(body, &order)
-
-	return order, nil
-}
-
-// Trade Volume
-func (g *GeminiAPI) TradeVolume() ([][]TradeVolume, error) {
-
-	url := g.url + TRADE_VOLUME_URL
-	params := requestParams{
-		"request": TRADE_VOLUME_URL,
-		"nonce":   getNonce(),
-	}
-
-	var volumes [][]TradeVolume
-
-	body, err := g.request("POST", url, params, nil)
-	if err != nil {
-		return volumes, err
-	}
-
-	json.Unmarshal(body, &volumes)
-
-	return volumes, nil
 }
 
 // Heartbeat

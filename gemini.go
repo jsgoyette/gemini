@@ -24,14 +24,14 @@ const (
 	TRADES_URL  = "/v1/trades/"
 
 	// authenticated
-	ACTIVE_ORDERS_URL  = "/v1/orders"
 	PAST_TRADES_URL    = "/v1/mytrades"
+	TRADE_VOLUME_URL   = "/v1/tradevolume"
+	ACTIVE_ORDERS_URL  = "/v1/orders"
 	ORDER_STATUS_URL   = "/v1/order/status"
 	NEW_ORDER_URL      = "/v1/order/new"
 	CANCEL_ORDER_URL   = "/v1/order/cancel"
 	CANCEL_ALL_URL     = "/v1/order/cancel/all"
 	CANCEL_SESSION_URL = "/v1/order/cancel/session"
-	TRADE_VOLUME_URL   = "/v1/tradevolume"
 	HEARTBEAT_URL      = "/v1/heartbeat"
 
 	// fund mgmt
