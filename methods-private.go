@@ -145,3 +145,25 @@ func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 
 	return order, nil
 }
+
+// Heartbeat
+func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
+
+	url := g.url + HEARTBEAT_URL
+	req := requestParams{
+		"request": HEARTBEAT_URL,
+		"nonce":   getNonce(),
+	}
+
+	var res GenericResponse
+
+	body, err := g.request("POST", url, req, nil)
+
+	if err != nil {
+		return res, err
+	}
+
+	json.Unmarshal(body, &res)
+
+	return res, nil
+}

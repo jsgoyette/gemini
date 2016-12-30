@@ -29,6 +29,7 @@ const (
 	NEW_ORDER_URL     = "/v1/order/new"
 	CANCEL_ALL_URL    = "/v1/order/cancel/all"
 	CANCEL_ORDER_URL  = "/v1/order/cancel"
+	HEARTBEAT_URL     = "/v1/heartbeat"
 )
 
 type GeminiAPI struct {
