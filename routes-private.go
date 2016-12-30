@@ -9,14 +9,14 @@ import (
 func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
 
 	url := g.url + ACTIVE_ORDERS_URL
-	req := requestParams{
+	params := requestParams{
 		"request": ACTIVE_ORDERS_URL,
 		"nonce":   getNonce(),
 	}
 
 	var orders []Order
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 
 	url := g.url + PAST_TRADES_URL
 
-	req := requestParams{
+	params := requestParams{
 		"request":      PAST_TRADES_URL,
 		"nonce":        getNonce(),
 		"symbol":       symbol,
@@ -41,7 +41,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 
 	var trades []Trade
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
 
 	url := g.url + NEW_ORDER_URL
-	req := requestParams{
+	params := requestParams{
 		"request":         NEW_ORDER_URL,
 		"nonce":           getNonce(),
 		"client_order_id": clientOrderId,
@@ -67,12 +67,12 @@ func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64
 	}
 
 	if options != nil {
-		req["options"] = options
+		params["options"] = options
 	}
 
 	var order Order
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return order, err
 	}
@@ -86,7 +86,7 @@ func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64
 func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 
 	url := g.url + ORDER_STATUS_URL
-	req := requestParams{
+	params := requestParams{
 		"request":  ORDER_STATUS_URL,
 		"nonce":    getNonce(),
 		"order_id": orderId,
@@ -94,7 +94,7 @@ func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 
 	var order Order
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return order, err
 	}
@@ -107,14 +107,14 @@ func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 // Cancel All
 func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 	url := g.url + CANCEL_ALL_URL
-	req := requestParams{
+	params := requestParams{
 		"request": CANCEL_ALL_URL,
 		"nonce":   getNonce(),
 	}
 
 	var res CancelResponse
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}
@@ -127,14 +127,14 @@ func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 // Cancel Session
 func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
 	url := g.url + CANCEL_SESSION_URL
-	req := requestParams{
+	params := requestParams{
 		"request": CANCEL_SESSION_URL,
 		"nonce":   getNonce(),
 	}
 
 	var res GenericResponse
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}
@@ -148,7 +148,7 @@ func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
 func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 
 	url := g.url + CANCEL_ORDER_URL
-	req := requestParams{
+	params := requestParams{
 		"request":  CANCEL_ORDER_URL,
 		"nonce":    getNonce(),
 		"order_id": orderId,
@@ -156,7 +156,7 @@ func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 
 	var order Order
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 	if err != nil {
 		return order, err
 	}
@@ -170,14 +170,14 @@ func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
 
 	url := g.url + HEARTBEAT_URL
-	req := requestParams{
+	params := requestParams{
 		"request": HEARTBEAT_URL,
 		"nonce":   getNonce(),
 	}
 
 	var res GenericResponse
 
-	body, err := g.request("POST", url, req, nil)
+	body, err := g.request("POST", url, params, nil)
 
 	if err != nil {
 		return res, err
