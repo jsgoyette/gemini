@@ -166,6 +166,27 @@ func (g *GeminiAPI) CancelOrder(orderId string) (Order, error) {
 	return order, nil
 }
 
+// Trade Volume
+func (g *GeminiAPI) TradeVolume() ([][]TradeVolume, error) {
+
+	url := g.url + TRADE_VOLUME_URL
+	params := requestParams{
+		"request": TRADE_VOLUME_URL,
+		"nonce":   getNonce(),
+	}
+
+	var volumes [][]TradeVolume
+
+	body, err := g.request("POST", url, params, nil)
+	if err != nil {
+		return volumes, err
+	}
+
+	json.Unmarshal(body, &volumes)
+
+	return volumes, nil
+}
+
 // Heartbeat
 func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
 

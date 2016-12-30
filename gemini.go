@@ -31,6 +31,7 @@ const (
 	CANCEL_ORDER_URL   = "/v1/order/cancel"
 	CANCEL_ALL_URL     = "/v1/order/cancel/all"
 	CANCEL_SESSION_URL = "/v1/order/cancel/session"
+	TRADE_VOLUME_URL   = "/v1/tradevolume"
 	HEARTBEAT_URL      = "/v1/heartbeat"
 )
 
@@ -79,20 +80,21 @@ func (id *Id) UnmarshalJSON(b []byte) error {
 }
 
 type Order struct {
-	OrderId         Id      `json:"order_id"`
-	ClientOrderId   string  `json:"client_order_id"`
-	Symbol          string  `json:"symbol"`
-	Price           float64 `json:",string"`
-	Side            string  `json:"side"`
-	Type            string  `json:"type"`
-	Timestamp       uint64  `json:"timestampms"`
-	IsLive          bool    `json:"is_live"`
-	IsCancelled     bool    `json:"is_cancelled"`
-	IsHidden        bool    `json:"is_hidden"`
-	WasForced       bool    `json:"was_forced"`
-	ExecutedAmount  float64 `json:"executed_amount,string"`
-	RemainingAmount float64 `json:"remaining_amount,string"`
-	OriginalAmount  float64 `json:"original_amount,string"`
+	OrderId           Id      `json:"order_id"`
+	ClientOrderId     string  `json:"client_order_id"`
+	Symbol            string  `json:"symbol"`
+	Price             float64 `json:",string"`
+	Side              string  `json:"side"`
+	Type              string  `json:"type"`
+	Timestamp         uint64  `json:"timestampms"`
+	IsLive            bool    `json:"is_live"`
+	IsCancelled       bool    `json:"is_cancelled"`
+	IsHidden          bool    `json:"is_hidden"`
+	WasForced         bool    `json:"was_forced"`
+	ExecutedAmount    float64 `json:"executed_amount,string"`
+	RemainingAmount   float64 `json:"remaining_amount,string"`
+	OriginalAmount    float64 `json:"original_amount,string"`
+	AvgExecutionPrice float64 `json:"avg_execution_price,string"`
 }
 
 type Trade struct {
@@ -108,6 +110,7 @@ type Trade struct {
 	FeeAmount     float64 `json:"fee_amount,string"`
 	IsAuctionFill bool    `json:"is_auction_fill"`
 	Broken        bool    `json:"broken"`
+	Break         string  `json:"break"`
 }
 
 type Ticker struct {
@@ -122,6 +125,28 @@ type TickerVolume struct {
 	USD       float64 `json:"USD,string"`
 	Last      float64 `json:"last,string"`
 	Timestamp uint64  `json:"timestamp"`
+}
+
+type TradeVolume struct {
+	AccountId         Id      `json:"account_id"`
+	Symbol            string  `json:"symbol"`
+	BaseCurrency      string  `json:"base_currency"`
+	NotionalCurrency  string  `json:"notional_currency"`
+	DataDate          string  `json:"data_date"`
+	TotalVolumeBase   float64 `json:"total_volume_base"`
+	MakeBuySellRatio  float64 `json:"maker_buy_sell_ratio"`
+	BuyMakerBase      float64 `json:"buy_maker_base"`
+	BuyMakerNotional  float64 `json:"buy_maker_notional"`
+	BuyMakerCount     float64 `json:"buy_maker_count"`
+	SellMakerBase     float64 `json:"sell_maker_base"`
+	SellMakerNotional float64 `json:"sell_maker_notional"`
+	SellMakerCount    float64 `json:"sell_maker_count"`
+	BuyTakerBase      float64 `json:"buy_taker_base"`
+	BuyTakerNotional  float64 `json:"buy_taker_notional"`
+	BuyTakerCount     float64 `json:"buy_taker_count"`
+	SellTakerBase     float64 `json:"sell_taker_base"`
+	SellTakerNotional float64 `json:"sell_taker_notional"`
+	SellTakerCount    float64 `json:"sell_taker_count"`
 }
 
 type Book struct {
