@@ -24,11 +24,11 @@ func (g *GeminiAPI) Symbols() ([]string, error) {
 }
 
 // Ticker
-func (g *GeminiAPI) Ticker(symbol string) (TickerResponse, error) {
+func (g *GeminiAPI) Ticker(symbol string) (Ticker, error) {
 
 	url := g.url + TICKER_URL + symbol
 
-	var ticker TickerResponse
+	var ticker Ticker
 
 	body, err := g.request("GET", url, nil, nil)
 	fmt.Printf("%+v\n", string(body))

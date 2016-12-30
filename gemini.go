@@ -109,7 +109,7 @@ type Trade struct {
 	IsAuctionFill bool    `json:"is_auction_fill"`
 }
 
-type TickerResponse struct {
+type Ticker struct {
 	Bid    float64      `json:"bid,string"`
 	Ask    float64      `json:"ask,string"`
 	Volume TickerVolume `json:"volume"`
@@ -139,12 +139,12 @@ type GenericResponse struct {
 	Message string
 }
 
-type CancelResponse struct {
-	Result  string                `json:"result"`
-	Details CancelResponseDetails `json:"details"`
+type CancelResult struct {
+	GenericResponse
+	Details CancelResultDetails `json:"details"`
 }
 
-type CancelResponseDetails struct {
+type CancelResultDetails struct {
 	CancelledOrders []Id `json:"cancelledOrders"`
 	CancelRejects   []Id `json:"cancelRejects"`
 }

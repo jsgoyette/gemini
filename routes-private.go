@@ -105,14 +105,14 @@ func (g *GeminiAPI) OrderStatus(orderId string) (Order, error) {
 }
 
 // Cancel All
-func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
+func (g *GeminiAPI) CancelAll() (CancelResult, error) {
 	url := g.url + CANCEL_ALL_URL
 	params := requestParams{
 		"request": CANCEL_ALL_URL,
 		"nonce":   getNonce(),
 	}
 
-	var res CancelResponse
+	var res CancelResult
 
 	body, err := g.request("POST", url, params, nil)
 	if err != nil {
