@@ -129,16 +129,21 @@ type CancelResponseDetails struct {
 	CancelRejects   []OrderId `json:"cancelRejects"`
 }
 
-type RequestHeaders struct {
+type requestHeaders struct {
 	key       string
 	payload   string
 	signature string
 }
 
-type RequestParams map[string]interface{}
+type requestParams map[string]interface{}
+
+// internal functions
+func getNonce() int64 {
+	return time.Now().UnixNano()
+}
 
 // internal methods
-func (g *GeminiAPI) prepPayload(req map[string]interface{}) *RequestHeaders {
+func (g *GeminiAPI) prepPayload(req *requestParams) *requestHeaders {
 
 	reqStr, _ := json.Marshal(req)
 	payload := base64.StdEncoding.EncodeToString([]byte(reqStr))
@@ -148,34 +153,31 @@ func (g *GeminiAPI) prepPayload(req map[string]interface{}) *RequestHeaders {
 
 	signature := hex.EncodeToString(mac.Sum(nil))
 
-	return &RequestHeaders{
+	return &requestHeaders{
 		key:       g.key,
 		payload:   payload,
 		signature: signature,
 	}
 }
 
-// internal functions
-func getNonce() int64 {
-	return time.Now().UnixNano()
-}
-
-func request(verb string, url string, headers *RequestHeaders, params map[string]string) ([]byte, error) {
+func (g *GeminiAPI) request(verb string, url string, postParams requestParams, getParams map[string]string) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
 		return nil, err
 	}
 
-	if headers != nil {
+	if postParams != nil {
+		headers := g.prepPayload(&postParams)
+
 		req.Header.Set("X-GEMINI-APIKEY", headers.key)
 		req.Header.Set("X-GEMINI-PAYLOAD", headers.payload)
 		req.Header.Set("X-GEMINI-SIGNATURE", headers.signature)
 	}
 
-	if params != nil {
+	if getParams != nil {
 		q := req.URL.Query()
-		for key, val := range params {
+		for key, val := range getParams {
 			q.Add(key, val)
 		}
 		req.URL.RawQuery = q.Encode()

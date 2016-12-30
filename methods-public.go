@@ -12,7 +12,7 @@ func (g *GeminiAPI) Symbols() ([]string, error) {
 
 	var symbols []string
 
-	body, err := request("GET", url, nil, nil)
+	body, err := g.request("GET", url, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func (g *GeminiAPI) OrderBook(symbol string, limitBids int, limitAsks int) (Book
 
 	var book Book
 
-	body, err := request("GET", url, nil, params)
+	body, err := g.request("GET", url, nil, params)
 	if err != nil {
 		return book, err
 	}
@@ -58,7 +58,7 @@ func (g *GeminiAPI) Trades(symbol string, since int64, limitTrades int, includeB
 
 	var res []Trade
 
-	body, err := request("GET", url, nil, params)
+	body, err := g.request("GET", url, nil, params)
 	if err != nil {
 		return nil, err
 	}

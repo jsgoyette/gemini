@@ -9,14 +9,14 @@ import (
 func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
 
 	url := g.url + ACTIVE_ORDERS_URL
-	req := RequestParams{
+	req := requestParams{
 		"request": ACTIVE_ORDERS_URL,
 		"nonce":   getNonce(),
 	}
 
 	var orders []Order
 
-	body, err := request("POST", url, g.prepPayload(req), nil)
+	body, err := g.request("POST", url, req, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 
 	url := g.url + PAST_TRADES_URL
 
-	req := RequestParams{
+	req := requestParams{
 		"request":      PAST_TRADES_URL,
 		"nonce":        getNonce(),
 		"symbol":       symbol,
@@ -41,7 +41,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 
 	var trades []Trade
 
-	body, err := request("POST", url, g.prepPayload(req), nil)
+	body, err := g.request("POST", url, req, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 func (g *GeminiAPI) NewOrder(symbol string, clientOrderId string, amount float64, price float64, side string, options []string) (Order, error) {
 
 	url := g.url + NEW_ORDER_URL
-	req := RequestParams{
+	req := requestParams{
 		"request":         NEW_ORDER_URL,
 		"nonce":           getNonce(),
 		"client_order_id": clientOrderId,
@@ -72,7 +72,7 @@ func (g *GeminiAPI) NewOrder(symbol string, clientOrderId string, amount float64
 
 	var order Order
 
-	body, err := request("POST", url, g.prepPayload(req), nil)
+	body, err := g.request("POST", url, req, nil)
 	if err != nil {
 		return order, err
 	}
@@ -86,7 +86,7 @@ func (g *GeminiAPI) NewOrder(symbol string, clientOrderId string, amount float64
 func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 
 	url := g.url + ORDER_STATUS_URL
-	req := RequestParams{
+	req := requestParams{
 		"request":  ORDER_STATUS_URL,
 		"nonce":    getNonce(),
 		"order_id": orderId,
@@ -94,7 +94,7 @@ func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 
 	var order Order
 
-	body, err := request("POST", url, g.prepPayload(req), nil)
+	body, err := g.request("POST", url, req, nil)
 	if err != nil {
 		return order, err
 	}
@@ -107,14 +107,14 @@ func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 // Cancel All
 func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 	url := g.url + CANCEL_ALL_URL
-	req := RequestParams{
+	req := requestParams{
 		"request": CANCEL_ALL_URL,
 		"nonce":   getNonce(),
 	}
 
 	var res CancelResponse
 
-	body, err := request("POST", url, g.prepPayload(req), nil)
+	body, err := g.request("POST", url, req, nil)
 	if err != nil {
 		return res, err
 	}
@@ -128,7 +128,7 @@ func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 
 	url := g.url + CANCEL_ORDER_URL
-	req := RequestParams{
+	req := requestParams{
 		"request":  CANCEL_ORDER_URL,
 		"nonce":    getNonce(),
 		"order_id": orderId,
@@ -136,7 +136,7 @@ func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 
 	var order Order
 
-	body, err := request("POST", url, g.prepPayload(req), nil)
+	body, err := g.request("POST", url, req, nil)
 	if err != nil {
 		return order, err
 	}
