@@ -2,32 +2,10 @@ package gemini
 
 import (
 	"encoding/json"
-	// "fmt"
 	"strconv"
 )
 
 // Active Orders
-// [
-// 	{
-// 		"order_id":"68053346",
-// 		"id":"68053346",
-// 		"symbol":"btcusd",
-// 		"exchange":"gemini",
-// 		"avg_execution_price":"0.00",
-// 		"side":"buy",
-// 		"type":"exchange limit",
-// 		"timestamp":"1483052547",
-// 		"timestampms":1483052547532,
-// 		"is_live":true,
-// 		"is_cancelled":false,
-// 		"is_hidden":false,
-// 		"was_forced":false,
-// 		"executed_amount":"0",
-// 		"remaining_amount":"0.212",
-// 		"price":"123.45",
-// 		"original_amount":"0.212"
-// 	}
-// ]
 func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
 
 	url := g.url + ACTIVE_ORDERS_URL
@@ -49,22 +27,6 @@ func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
 }
 
 // Past Trades
-// [
-// 	{
-// 		"price":"900.97",
-// 		"amount":"0.00221429",
-// 		"timestamp":1482907289,
-// 		"timestampms":1482907289592,
-// 		"type":"Buy",
-// 		"aggressor":true,
-// 		"fee_currency":"USD",
-// 		"fee_amount":"0.00498752215325",
-// 		"tid":68053255,
-// 		"order_id":"68053253",
-// 		"exchange":"gemini",
-// 		"is_auction_fill":false,
-// 	}
-// ]
 func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
 
 	url := g.url + PAST_TRADES_URL
@@ -77,42 +39,19 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 		"timestamp":    timestamp,
 	}
 
+	var trades []Trade
+
 	body, err := request("POST", url, g.prepPayload(req), nil)
 	if err != nil {
 		return nil, err
 	}
 
-	var trades []Trade
 	json.Unmarshal(body, &trades)
 
 	return trades, nil
 }
 
 // New Order
-// {
-// 	"order_id":"68053332",
-// 	"id":"68053332",
-// 	"symbol":"btcusd",
-// 	"exchange":"gemini",
-// 	"avg_execution_price":"0.00",
-// 	"side":"buy",
-// 	"type":"exchange limit",
-// 	"timestamp":"1483050634",
-// 	"timestampms":1483050634767,
-// 	"is_live":true,
-// 	"is_cancelled":false,
-// 	"is_hidden":false,
-// 	"was_forced":false,
-// 	"executed_amount":"0",
-// 	"remaining_amount":"0.12",
-// 	"price":"123.45",
-// 	"original_amount":"0.12"
-// }
-// {
-// 	"result":"error",
-// 	"reason":"InsufficientFunds",
-// 	"message":"Failed to place buy order on symbol 'BTCUSD' for price $123.45 and quantity 120,120 BTC due to insufficient funds"
-// }
 func (g *GeminiAPI) NewOrder(symbol string, clientOrderId string, amount float64, price float64, side string, options []string) (Order, error) {
 
 	url := g.url + NEW_ORDER_URL
@@ -138,37 +77,12 @@ func (g *GeminiAPI) NewOrder(symbol string, clientOrderId string, amount float64
 		return order, err
 	}
 
-	// fmt.Println(string(body))
-
 	json.Unmarshal(body, &order)
 
 	return order, nil
 }
 
-// {
-// 	"order_id":"68053346",
-// 	"id":"68053346",
-// 	"symbol":"btcusd",
-// 	"exchange":"gemini",
-// 	"avg_execution_price":"0.00",
-// 	"side":"buy",
-// 	"type":"exchange limit",
-// 	"timestamp":"1483052547",
-// 	"timestampms":1483052547532,
-// 	"is_live":true,
-// 	"is_cancelled":false,
-// 	"is_hidden":false,
-// 	"was_forced":false,
-// 	"executed_amount":"0",
-// 	"remaining_amount":"0.212",
-// 	"price":"123.45",
-// 	"original_amount":"0.212"
-// }
-// {
-// 	"result":"error",
-// 	"reason":"OrderNotFound",
-// 	"message":"Order 68053334 not found"
-// }
+// Order Status
 func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 
 	url := g.url + ORDER_STATUS_URL
@@ -190,13 +104,7 @@ func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
 	return order, nil
 }
 
-// {
-// 	"result":"ok",
-// 	"details":{
-// 		"cancelledOrders":[68053332],
-// 		"cancelRejects":[]
-// 	}
-// }
+// Cancel All
 func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 	url := g.url + CANCEL_ALL_URL
 	req := RequestParams{
@@ -217,30 +125,6 @@ func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 }
 
 // Cancel Order
-// {
-// 	"order_id":"68053338",
-// 	"id":"68053338",
-// 	"symbol":"btcusd",
-// 	"exchange":"gemini",
-// 	"avg_execution_price":"0.00",
-// 	"side":"buy",
-// 	"type":"exchange limit",
-// 	"timestamp":"1483051780",
-// 	"timestampms":1483051780029,
-// 	"is_live":false,
-// 	"is_cancelled":true,
-// 	"is_hidden":false,
-// 	"was_forced":false,
-// 	"executed_amount":"0",
-// 	"remaining_amount":"0.12",
-// 	"price":"123.45",
-// 	"original_amount":"0.12"
-// }
-// {
-// 	"result":"error",
-// 	"reason":"OrderNotFound",
-// 	"message":"Order 6803338 not found"
-// }
 func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 
 	url := g.url + CANCEL_ORDER_URL
