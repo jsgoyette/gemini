@@ -60,8 +60,9 @@ func (e *GeminiError) Error() string {
 
 type Id string
 
-// custom Unmarshal since Gemini returns array of int instead of strings in the
-// CancelAll response
+// custom Unmarshal since Gemini returns array of ints instead of strings in
+// the CancelAll response, and thus type needs to handle unmarshalling from
+// both string and int json types
 func (id *Id) UnmarshalJSON(b []byte) error {
 
 	if len(b) > 0 && b[0] == '"' {
