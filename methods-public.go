@@ -10,15 +10,16 @@ func (g *GeminiAPI) Symbols() ([]string, error) {
 
 	url := g.url + SYMBOLS_URL
 
+	var symbols []string
+
 	body, err := request("GET", url, nil, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	var res []string
-	json.Unmarshal(body, &res)
+	json.Unmarshal(body, &symbols)
 
-	return res, nil
+	return symbols, nil
 }
 
 // Order Book
@@ -49,6 +50,7 @@ func (g *GeminiAPI) Trades(symbol string, since int64, limitTrades int, includeB
 	url := g.url + TRADES_URL + "/" + symbol
 
 	params := map[string]string{
+		// FIXME: since is causing no trades to get returned
 		// "since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),
 		"include_breaks": strconv.FormatBool(includeBreaks),
