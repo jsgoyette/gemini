@@ -124,6 +124,26 @@ func (g *GeminiAPI) CancelAll() (CancelResponse, error) {
 	return res, nil
 }
 
+// Cancel Session
+func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
+	url := g.url + CANCEL_SESSION_URL
+	req := requestParams{
+		"request": CANCEL_SESSION_URL,
+		"nonce":   getNonce(),
+	}
+
+	var res GenericResponse
+
+	body, err := g.request("POST", url, req, nil)
+	if err != nil {
+		return res, err
+	}
+
+	json.Unmarshal(body, &res)
+
+	return res, nil
+}
+
 // Cancel Order
 func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
 

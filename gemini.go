@@ -23,13 +23,14 @@ const (
 	TRADES_URL  = "/v1/trades"
 
 	// authenticated
-	ACTIVE_ORDERS_URL = "/v1/orders"
-	PAST_TRADES_URL   = "/v1/mytrades"
-	ORDER_STATUS_URL  = "/v1/order/status"
-	NEW_ORDER_URL     = "/v1/order/new"
-	CANCEL_ALL_URL    = "/v1/order/cancel/all"
-	CANCEL_ORDER_URL  = "/v1/order/cancel"
-	HEARTBEAT_URL     = "/v1/heartbeat"
+	ACTIVE_ORDERS_URL  = "/v1/orders"
+	PAST_TRADES_URL    = "/v1/mytrades"
+	ORDER_STATUS_URL   = "/v1/order/status"
+	NEW_ORDER_URL      = "/v1/order/new"
+	CANCEL_ORDER_URL   = "/v1/order/cancel"
+	CANCEL_ALL_URL     = "/v1/order/cancel/all"
+	CANCEL_SESSION_URL = "/v1/order/cancel/session"
+	HEARTBEAT_URL      = "/v1/heartbeat"
 )
 
 type GeminiAPI struct {
