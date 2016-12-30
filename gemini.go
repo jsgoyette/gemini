@@ -107,6 +107,7 @@ type Trade struct {
 	FeeCurrency   string  `json:"fee_currency"`
 	FeeAmount     float64 `json:"fee_amount,string"`
 	IsAuctionFill bool    `json:"is_auction_fill"`
+	Broken        bool    `json:"broken"`
 }
 
 type Ticker struct {
