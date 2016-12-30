@@ -59,6 +59,8 @@ func (e *GeminiError) Error() string {
 
 type OrderId string
 
+// custom Unmarshal since Gemini returns array of int instead of strings in the
+// CancelAll response
 func (o *OrderId) UnmarshalJSON(b []byte) error {
 
 	if len(b) > 0 && b[0] == '"' {
