@@ -27,7 +27,7 @@ func (g *GeminiAPI) OrderBook(symbol string, limitBids int, limitAsks int) (Book
 
 	url := g.url + BOOK_URL + "/" + symbol
 
-	params := map[string]string{
+	params := requestParams{
 		"limit_bids": strconv.Itoa(limitBids),
 		"limit_asks": strconv.Itoa(limitAsks),
 	}
@@ -49,7 +49,7 @@ func (g *GeminiAPI) Trades(symbol string, since int64, limitTrades int, includeB
 
 	url := g.url + TRADES_URL + "/" + symbol
 
-	params := map[string]string{
+	params := requestParams{
 		// FIXME: since is causing no trades to get returned
 		// "since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),

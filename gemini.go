@@ -161,7 +161,7 @@ func (g *GeminiAPI) prepPayload(req *requestParams) *requestHeaders {
 	}
 }
 
-func (g *GeminiAPI) request(verb string, url string, postParams requestParams, getParams map[string]string) ([]byte, error) {
+func (g *GeminiAPI) request(verb string, url string, postParams requestParams, getParams requestParams) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
@@ -179,7 +179,7 @@ func (g *GeminiAPI) request(verb string, url string, postParams requestParams, g
 	if getParams != nil {
 		q := req.URL.Query()
 		for key, val := range getParams {
-			q.Add(key, val)
+			q.Add(key, val.(string))
 		}
 		req.URL.RawQuery = q.Encode()
 	}
