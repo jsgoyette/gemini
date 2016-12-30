@@ -1,7 +1,7 @@
 # gemini-api for golang
-Utility types and methods for making API requests to the Gemini bitcoin exchange
+Utility types and methods to facilitate the use of the Gemini bitcoin exchange REST API
 
-**Note**: This is a work in progress. Please feel free to contribute if you use this package and run into issues.
+**Note**: Please feel free to contribute if you use this package and run into issues.
 
 ## Usage
 
@@ -10,13 +10,13 @@ Utility types and methods for making API requests to the Gemini bitcoin exchange
 const (
 	GEMINI_API_KEY    = ""
 	GEMINI_API_SECRET = ""
-	LIVE              = false        
+	LIVE              = false
 )
 
 api := gemini.New(LIVE, GEMINI_API_KEY, GEMINI_API_SECRET)
 
 
-// Get the first (lowest) ask price from the order book
+// Get the first ask price from the order book
 orderBook, err := api.OrderBook("btcusd", 1, 1)
 
 var askPrice float64
