@@ -7,6 +7,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -51,7 +52,7 @@ type GeminiError struct {
 }
 
 func (e *GeminiError) Error() string {
-	return e.Reason + ": " + e.Message
+	return fmt.Sprintf("[%v] %v", e.Reason, e.Message)
 }
 
 type OrderId string
