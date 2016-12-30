@@ -251,3 +251,27 @@ func (g *GeminiAPI) NewDepositAddress(currency, label string) (DepositAddressRes
 
 	return res, nil
 }
+
+// Withdraw Crypto Funds
+func (g *GeminiAPI) WithdrawFunds(currency, address string, amount float64) (WithdrawFundsResult, error) {
+
+	path := WITHDRAW_FUNDS_URL + currency
+	url := g.url + path
+	params := requestParams{
+		"request": path,
+		"nonce":   getNonce(),
+		"address": address,
+		"amount":  strconv.FormatFloat(amount, 'f', -1, 64),
+	}
+
+	var res WithdrawFundsResult
+
+	body, err := g.request("POST", url, params, nil)
+	if err != nil {
+		return res, err
+	}
+
+	json.Unmarshal(body, &res)
+
+	return res, nil
+}
