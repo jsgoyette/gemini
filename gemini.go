@@ -58,11 +58,11 @@ func (e *GeminiError) Error() string {
 	return fmt.Sprintf("[%v] %v", e.Reason, e.Message)
 }
 
-type OrderId string
+type Id string
 
 // custom Unmarshal since Gemini returns array of int instead of strings in the
 // CancelAll response
-func (o *OrderId) UnmarshalJSON(b []byte) error {
+func (id *Id) UnmarshalJSON(b []byte) error {
 
 	if len(b) > 0 && b[0] == '"' {
 		b = b[1:]
@@ -73,12 +73,12 @@ func (o *OrderId) UnmarshalJSON(b []byte) error {
 		b = b[:l-1]
 	}
 
-	*o = OrderId(b)
+	*id = Id(b)
 	return nil
 }
 
 type Order struct {
-	OrderId         OrderId `json:"order_id"`
+	OrderId         Id      `json:"order_id"`
 	ClientOrderId   string  `json:"client_order_id"`
 	Symbol          string  `json:"symbol"`
 	Price           float64 `json:",string"`
@@ -95,7 +95,8 @@ type Order struct {
 }
 
 type Trade struct {
-	OrderId       OrderId `json:"order_id"`
+	OrderId       Id      `json:"order_id"`
+	TradeId       Id      `json:"tid"`
 	Exchange      string  `json:"exchange"`
 	Price         float64 `json:",string"`
 	Amount        float64 `json:",string"`
@@ -143,8 +144,8 @@ type CancelResponse struct {
 }
 
 type CancelResponseDetails struct {
-	CancelledOrders []OrderId `json:"cancelledOrders"`
-	CancelRejects   []OrderId `json:"cancelRejects"`
+	CancelledOrders []Id `json:"cancelledOrders"`
+	CancelRejects   []Id `json:"cancelRejects"`
 }
 
 // internal types

@@ -83,7 +83,7 @@ func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64
 }
 
 // Order Status
-func (g *GeminiAPI) OrderStatus(orderId OrderId) (Order, error) {
+func (g *GeminiAPI) OrderStatus(orderId Id) (Order, error) {
 
 	url := g.url + ORDER_STATUS_URL
 	params := requestParams{
@@ -145,7 +145,7 @@ func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
 }
 
 // Cancel Order
-func (g *GeminiAPI) CancelOrder(orderId OrderId) (Order, error) {
+func (g *GeminiAPI) CancelOrder(orderId Id) (Order, error) {
 
 	url := g.url + CANCEL_ORDER_URL
 	params := requestParams{
