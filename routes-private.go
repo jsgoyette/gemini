@@ -199,7 +199,6 @@ func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
 	var res GenericResponse
 
 	body, err := g.request("POST", url, params, nil)
-
 	if err != nil {
 		return res, err
 	}
@@ -221,7 +220,6 @@ func (g *GeminiAPI) Balances() ([]FundBalance, error) {
 	var balances []FundBalance
 
 	body, err := g.request("POST", url, params, nil)
-
 	if err != nil {
 		return balances, err
 	}
@@ -229,4 +227,27 @@ func (g *GeminiAPI) Balances() ([]FundBalance, error) {
 	json.Unmarshal(body, &balances)
 
 	return balances, nil
+}
+
+// New Deposit Address
+func (g *GeminiAPI) NewDepositAddress(currency, label string) (DepositAddressResult, error) {
+
+	path := NEW_DEPOSIT_ADDRESS_URL + currency + "/newAddress"
+	url := g.url + path
+	params := requestParams{
+		"request": path,
+		"nonce":   getNonce(),
+		"label":   label,
+	}
+
+	var res DepositAddressResult
+
+	body, err := g.request("POST", url, params, nil)
+	if err != nil {
+		return res, err
+	}
+
+	json.Unmarshal(body, &res)
+
+	return res, nil
 }

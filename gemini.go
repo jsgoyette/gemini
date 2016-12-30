@@ -35,7 +35,8 @@ const (
 	HEARTBEAT_URL      = "/v1/heartbeat"
 
 	// fund mgmt
-	BALANCES_URL = "/v1/balances"
+	BALANCES_URL            = "/v1/balances"
+	NEW_DEPOSIT_ADDRESS_URL = "/v1/deposit/"
 )
 
 type GeminiAPI struct {
@@ -184,6 +185,12 @@ type FundBalance struct {
 	Amount                 float64 `json:"amount,string"`
 	Available              float64 `json:"available,string"`
 	AvailableForWithdrawal float64 `json:"availableForWithdrawal,string"`
+}
+
+type DepositAddressResult struct {
+	Currency string `json:"currency"`
+	Address  string `json:"address"`
+	Label    string `json:"label"`
 }
 
 // internal types
