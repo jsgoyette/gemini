@@ -38,7 +38,7 @@ type GeminiAPI struct {
 	secret string
 }
 
-func New(production bool, key string, secret string) *GeminiAPI {
+func New(production bool, key, secret string) *GeminiAPI {
 	var url string
 	if url = SANDBOX_URL; production == true {
 		url = BASE_URL
@@ -161,7 +161,7 @@ func (g *GeminiAPI) prepPayload(req *requestParams) *requestHeaders {
 	}
 }
 
-func (g *GeminiAPI) request(verb string, url string, postParams requestParams, getParams requestParams) ([]byte, error) {
+func (g *GeminiAPI) request(verb string, url string, postParams, getParams requestParams) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {

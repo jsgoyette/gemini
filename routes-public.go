@@ -23,7 +23,7 @@ func (g *GeminiAPI) Symbols() ([]string, error) {
 }
 
 // Order Book
-func (g *GeminiAPI) OrderBook(symbol string, limitBids int, limitAsks int) (Book, error) {
+func (g *GeminiAPI) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
 	url := g.url + BOOK_URL + "/" + symbol
 

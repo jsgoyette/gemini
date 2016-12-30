@@ -52,7 +52,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 }
 
 // New Order
-func (g *GeminiAPI) NewOrder(symbol string, clientOrderId string, amount float64, price float64, side string, options []string) (Order, error) {
+func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
 
 	url := g.url + NEW_ORDER_URL
 	req := requestParams{
