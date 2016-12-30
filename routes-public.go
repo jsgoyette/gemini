@@ -2,6 +2,7 @@ package gemini
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 )
 
@@ -22,10 +23,29 @@ func (g *GeminiAPI) Symbols() ([]string, error) {
 	return symbols, nil
 }
 
+// Ticker
+func (g *GeminiAPI) Ticker(symbol string) (TickerResponse, error) {
+
+	url := g.url + TICKER_URL + symbol
+
+	var ticker TickerResponse
+
+	body, err := g.request("GET", url, nil, nil)
+	fmt.Printf("%+v\n", string(body))
+
+	if err != nil {
+		return ticker, err
+	}
+
+	json.Unmarshal(body, &ticker)
+
+	return ticker, nil
+}
+
 // Order Book
 func (g *GeminiAPI) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
-	url := g.url + BOOK_URL + "/" + symbol
+	url := g.url + BOOK_URL + symbol
 
 	params := requestParams{
 		"limit_bids": strconv.Itoa(limitBids),
@@ -47,7 +67,7 @@ func (g *GeminiAPI) OrderBook(symbol string, limitBids, limitAsks int) (Book, er
 // Trades
 func (g *GeminiAPI) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
 
-	url := g.url + TRADES_URL + "/" + symbol
+	url := g.url + TRADES_URL + symbol
 
 	params := requestParams{
 		// FIXME: since is causing no trades to get returned

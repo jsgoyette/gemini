@@ -19,8 +19,9 @@ const (
 
 	// public
 	SYMBOLS_URL = "/v1/symbols"
-	BOOK_URL    = "/v1/book"
-	TRADES_URL  = "/v1/trades"
+	TICKER_URL  = "/v1/pubticker/"
+	BOOK_URL    = "/v1/book/"
+	TRADES_URL  = "/v1/trades/"
 
 	// authenticated
 	ACTIVE_ORDERS_URL  = "/v1/orders"
@@ -104,6 +105,20 @@ type Trade struct {
 	FeeCurrency   string  `json:"fee_currency"`
 	FeeAmount     float64 `json:"fee_amount,string"`
 	IsAuctionFill bool    `json:"is_auction_fill"`
+}
+
+type TickerResponse struct {
+	Bid    float64      `json:"bid,string"`
+	Ask    float64      `json:"ask,string"`
+	Volume TickerVolume `json:"volume"`
+}
+
+type TickerVolume struct {
+	BTC       float64 `json:"BTC,string"`
+	ETH       float64 `json:"ETH,string"`
+	USD       float64 `json:"USD,string"`
+	Last      float64 `json:"last,string"`
+	Timestamp uint64  `json:"timestamp"`
 }
 
 type Book struct {
