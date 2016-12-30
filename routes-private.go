@@ -208,3 +208,25 @@ func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
 
 	return res, nil
 }
+
+// Balances
+func (g *GeminiAPI) Balances() ([]FundBalance, error) {
+
+	url := g.url + BALANCES_URL
+	params := requestParams{
+		"request": BALANCES_URL,
+		"nonce":   getNonce(),
+	}
+
+	var balances []FundBalance
+
+	body, err := g.request("POST", url, params, nil)
+
+	if err != nil {
+		return balances, err
+	}
+
+	json.Unmarshal(body, &balances)
+
+	return balances, nil
+}

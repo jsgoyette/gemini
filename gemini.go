@@ -33,6 +33,9 @@ const (
 	CANCEL_SESSION_URL = "/v1/order/cancel/session"
 	TRADE_VOLUME_URL   = "/v1/tradevolume"
 	HEARTBEAT_URL      = "/v1/heartbeat"
+
+	// fund mgmt
+	BALANCES_URL = "/v1/balances"
 )
 
 type GeminiAPI struct {
@@ -173,6 +176,14 @@ type CancelResult struct {
 type CancelResultDetails struct {
 	CancelledOrders []Id `json:"cancelledOrders"`
 	CancelRejects   []Id `json:"cancelRejects"`
+}
+
+type FundBalance struct {
+	Type                   string  `json:"type"`
+	Currency               string  `json:"currency"`
+	Amount                 float64 `json:"amount,string"`
+	Available              float64 `json:"available,string"`
+	AvailableForWithdrawal float64 `json:"availableForWithdrawal,string"`
 }
 
 // internal types
