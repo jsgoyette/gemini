@@ -39,9 +39,9 @@ type GeminiAPI struct {
 	secret string
 }
 
-func New(production bool, key, secret string) *GeminiAPI {
+func New(live bool, key, secret string) *GeminiAPI {
 	var url string
-	if url = SANDBOX_URL; production == true {
+	if url = SANDBOX_URL; live == true {
 		url = BASE_URL
 	}
 
