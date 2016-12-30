@@ -181,7 +181,7 @@ func (g *GeminiAPI) prepPayload(req *requestParams) *requestHeaders {
 	}
 }
 
-func (g *GeminiAPI) request(verb string, url string, postParams, getParams requestParams) ([]byte, error) {
+func (g *GeminiAPI) request(verb, url string, postParams, getParams requestParams) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
