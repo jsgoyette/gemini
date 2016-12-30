@@ -116,7 +116,6 @@ type BookEntry struct {
 	Amount float64 `json:",string"`
 }
 
-// internal types
 type GenericResponse struct {
 	Result  string
 	Reason  string
@@ -133,6 +132,7 @@ type CancelResponseDetails struct {
 	CancelRejects   []OrderId `json:"cancelRejects"`
 }
 
+// internal types
 type requestHeaders struct {
 	key       string
 	payload   string
