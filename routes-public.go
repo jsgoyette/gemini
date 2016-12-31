@@ -87,3 +87,43 @@ func (g *GeminiAPI) Trades(symbol string, since int64, limitTrades int, includeB
 
 	return res, nil
 }
+
+// Current Auction
+func (g *GeminiAPI) CurrentAuction(symbol string) (CurrentAuction, error) {
+
+	url := g.url + AUCTION_URL + symbol
+
+	var auction CurrentAuction
+
+	body, err := g.request("GET", url, nil, nil)
+	if err != nil {
+		return auction, err
+	}
+
+	json.Unmarshal(body, &auction)
+
+	return auction, nil
+}
+
+// Auction History
+func (g *GeminiAPI) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
+
+	url := g.url + AUCTION_URL + symbol + "/history"
+
+	params := requestParams{
+		"since":                 strconv.Itoa(int(since)),
+		"limit_auction_results": strconv.Itoa(limit),
+		"include_indicative":    strconv.FormatBool(includeIndicative),
+	}
+
+	var auctions []Auction
+
+	body, err := g.request("GET", url, nil, params)
+	if err != nil {
+		return auctions, err
+	}
+
+	json.Unmarshal(body, &auctions)
+
+	return auctions, nil
+}

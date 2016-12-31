@@ -22,6 +22,7 @@ const (
 	TICKER_URL  = "/v1/pubticker/"
 	BOOK_URL    = "/v1/book/"
 	TRADES_URL  = "/v1/trades/"
+	AUCTION_URL = "/v1/auction/"
 
 	// authenticated
 	PAST_TRADES_URL    = "/v1/mytrades"
@@ -162,6 +163,33 @@ type Book struct {
 type BookEntry struct {
 	Price  float64 `json:",string"`
 	Amount float64 `json:",string"`
+}
+
+type CurrentAuction struct {
+	ClosedUntil                  uint64  `json:"closed_until_ms"`
+	LastAuctionEid               Id      `json:"last_auction_eid"`
+	LastAuctionPrice             float64 `json:"last_auction_price,string"`
+	LastAuctionQuantity          float64 `json:"last_auction_quantity,string"`
+	LastHighestBidPrice          float64 `json:"last_highest_bid_price,string"`
+	LastLowestAskPrice           float64 `json:"last_lowest_ask_price,string"`
+	MostRecentIndicativePrice    float64 `json:"most_recent_indicative_price,string"`
+	MostRecentIndicativeQuantity float64 `json:"most_recent_indicative_quantity,string"`
+	MostRecentHighestBidPrice    float64 `json:"most_recent_highest_bid_price,string"`
+	MostRecentLowestAskPrice     float64 `json:"most_recent_lowest_ask_price,string"`
+	NextUpdate                   uint64  `json:"next_update_ms"`
+	NextAuction                  uint64  `json:"next_auction_ms"`
+}
+
+type Auction struct {
+	Timestamp       uint64  `json:"timestampms"`
+	AuctionId       Id      `json:"auction_id"`
+	Eid             Id      `json:"eid"`
+	EventType       string  `json:"event_type"`
+	AuctionResult   string  `json:"auction_result"`
+	AuctionPrice    float64 `json:"auction_price,string"`
+	AuctionQuantity float64 `json:"auction_quantity,string"`
+	HighestBidPrice float64 `json:"highest_bid_price,string"`
+	LowestAskPrice  float64 `json:"lowest_ask_price,string"`
 }
 
 type GenericResponse struct {
