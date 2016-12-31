@@ -1,8 +1,6 @@
 # gemini-api for golang
 Utility types and methods to facilitate the use of the Gemini bitcoin exchange REST API
 
-**Note**: Please feel free to contribute if you use this package and run into issues.
-
 ## Usage
 
 ```
