@@ -2,7 +2,6 @@ package gemini
 
 import (
 	"encoding/json"
-	"fmt"
 	"strconv"
 )
 
@@ -31,8 +30,6 @@ func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
 	var ticker Ticker
 
 	body, err := g.request("GET", url, nil, nil)
-	fmt.Printf("%+v\n", string(body))
-
 	if err != nil {
 		return ticker, err
 	}
@@ -46,7 +43,6 @@ func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
 func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
 	url := g.url + BOOK_URL + symbol
-
 	params := requestParams{
 		"limit_bids": strconv.Itoa(limitBids),
 		"limit_asks": strconv.Itoa(limitAsks),
@@ -68,7 +64,6 @@ func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, er
 func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
 
 	url := g.url + TRADES_URL + symbol
-
 	params := requestParams{
 		"since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),
@@ -108,7 +103,6 @@ func (g *GeminiApi) CurrentAuction(symbol string) (CurrentAuction, error) {
 func (g *GeminiApi) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
 
 	url := g.url + AUCTION_URL + symbol + "/history"
-
 	params := requestParams{
 		"since":                 strconv.Itoa(int(since)),
 		"limit_auction_results": strconv.Itoa(limit),
