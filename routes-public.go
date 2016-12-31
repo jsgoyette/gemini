@@ -70,8 +70,7 @@ func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeB
 	url := g.url + TRADES_URL + symbol
 
 	params := requestParams{
-		// FIXME: since is causing no trades to get returned
-		// "since":          strconv.Itoa(int(since)),
+		"since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),
 		"include_breaks": strconv.FormatBool(includeBreaks),
 	}
