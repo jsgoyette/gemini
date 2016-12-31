@@ -18,27 +18,27 @@ const (
 	SANDBOX_URL = "https://api.sandbox.gemini.com"
 
 	// public
-	SYMBOLS_URL = "/v1/symbols"
-	TICKER_URL  = "/v1/pubticker/"
-	BOOK_URL    = "/v1/book/"
-	TRADES_URL  = "/v1/trades/"
-	AUCTION_URL = "/v1/auction/"
+	SYMBOLS_URI = "/v1/symbols"
+	TICKER_URI  = "/v1/pubticker/"
+	BOOK_URI    = "/v1/book/"
+	TRADES_URI  = "/v1/trades/"
+	AUCTION_URI = "/v1/auction/"
 
 	// authenticated
-	PAST_TRADES_URL    = "/v1/mytrades"
-	TRADE_VOLUME_URL   = "/v1/tradevolume"
-	ACTIVE_ORDERS_URL  = "/v1/orders"
-	ORDER_STATUS_URL   = "/v1/order/status"
-	NEW_ORDER_URL      = "/v1/order/new"
-	CANCEL_ORDER_URL   = "/v1/order/cancel"
-	CANCEL_ALL_URL     = "/v1/order/cancel/all"
-	CANCEL_SESSION_URL = "/v1/order/cancel/session"
-	HEARTBEAT_URL      = "/v1/heartbeat"
+	PAST_TRADES_URI    = "/v1/mytrades"
+	TRADE_VOLUME_URI   = "/v1/tradevolume"
+	ACTIVE_ORDERS_URI  = "/v1/orders"
+	ORDER_STATUS_URI   = "/v1/order/status"
+	NEW_ORDER_URI      = "/v1/order/new"
+	CANCEL_ORDER_URI   = "/v1/order/cancel"
+	CANCEL_ALL_URI     = "/v1/order/cancel/all"
+	CANCEL_SESSION_URI = "/v1/order/cancel/session"
+	HEARTBEAT_URI      = "/v1/heartbeat"
 
 	// fund mgmt
-	BALANCES_URL            = "/v1/balances"
-	NEW_DEPOSIT_ADDRESS_URL = "/v1/deposit/"
-	WITHDRAW_FUNDS_URL      = "/v1/withdraw/"
+	BALANCES_URI            = "/v1/balances"
+	NEW_DEPOSIT_ADDRESS_URI = "/v1/deposit/"
+	WITHDRAW_FUNDS_URI      = "/v1/withdraw/"
 )
 
 type GeminiApi struct {

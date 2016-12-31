@@ -8,10 +8,10 @@ import (
 // Past Trades
 func (g *GeminiApi) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
 
-	url := g.url + PAST_TRADES_URL
+	url := g.url + PAST_TRADES_URI
 
 	params := requestParams{
-		"request":      PAST_TRADES_URL,
+		"request":      PAST_TRADES_URI,
 		"nonce":        getNonce(),
 		"symbol":       symbol,
 		"limit_trades": limitTrades,
@@ -33,9 +33,9 @@ func (g *GeminiApi) PastTrades(symbol string, limitTrades int, timestamp int64) 
 // Trade Volume
 func (g *GeminiApi) TradeVolume() ([][]TradeVolume, error) {
 
-	url := g.url + TRADE_VOLUME_URL
+	url := g.url + TRADE_VOLUME_URI
 	params := requestParams{
-		"request": TRADE_VOLUME_URL,
+		"request": TRADE_VOLUME_URI,
 		"nonce":   getNonce(),
 	}
 
@@ -54,9 +54,9 @@ func (g *GeminiApi) TradeVolume() ([][]TradeVolume, error) {
 // Active Orders
 func (g *GeminiApi) ActiveOrders() ([]Order, error) {
 
-	url := g.url + ACTIVE_ORDERS_URL
+	url := g.url + ACTIVE_ORDERS_URI
 	params := requestParams{
-		"request": ACTIVE_ORDERS_URL,
+		"request": ACTIVE_ORDERS_URI,
 		"nonce":   getNonce(),
 	}
 
@@ -75,9 +75,9 @@ func (g *GeminiApi) ActiveOrders() ([]Order, error) {
 // Order Status
 func (g *GeminiApi) OrderStatus(orderId string) (Order, error) {
 
-	url := g.url + ORDER_STATUS_URL
+	url := g.url + ORDER_STATUS_URI
 	params := requestParams{
-		"request":  ORDER_STATUS_URL,
+		"request":  ORDER_STATUS_URI,
 		"nonce":    getNonce(),
 		"order_id": orderId,
 	}
@@ -97,9 +97,9 @@ func (g *GeminiApi) OrderStatus(orderId string) (Order, error) {
 // New Order
 func (g *GeminiApi) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
 
-	url := g.url + NEW_ORDER_URL
+	url := g.url + NEW_ORDER_URI
 	params := requestParams{
-		"request":         NEW_ORDER_URL,
+		"request":         NEW_ORDER_URI,
 		"nonce":           getNonce(),
 		"client_order_id": clientOrderId,
 		"symbol":          symbol,
@@ -128,9 +128,9 @@ func (g *GeminiApi) NewOrder(symbol, clientOrderId string, amount, price float64
 // Cancel Order
 func (g *GeminiApi) CancelOrder(orderId string) (Order, error) {
 
-	url := g.url + CANCEL_ORDER_URL
+	url := g.url + CANCEL_ORDER_URI
 	params := requestParams{
-		"request":  CANCEL_ORDER_URL,
+		"request":  CANCEL_ORDER_URI,
 		"nonce":    getNonce(),
 		"order_id": orderId,
 	}
@@ -150,9 +150,9 @@ func (g *GeminiApi) CancelOrder(orderId string) (Order, error) {
 // Cancel All
 func (g *GeminiApi) CancelAll() (CancelResult, error) {
 
-	url := g.url + CANCEL_ALL_URL
+	url := g.url + CANCEL_ALL_URI
 	params := requestParams{
-		"request": CANCEL_ALL_URL,
+		"request": CANCEL_ALL_URI,
 		"nonce":   getNonce(),
 	}
 
@@ -171,9 +171,9 @@ func (g *GeminiApi) CancelAll() (CancelResult, error) {
 // Cancel Session
 func (g *GeminiApi) CancelSession() (GenericResponse, error) {
 
-	url := g.url + CANCEL_SESSION_URL
+	url := g.url + CANCEL_SESSION_URI
 	params := requestParams{
-		"request": CANCEL_SESSION_URL,
+		"request": CANCEL_SESSION_URI,
 		"nonce":   getNonce(),
 	}
 
@@ -192,9 +192,9 @@ func (g *GeminiApi) CancelSession() (GenericResponse, error) {
 // Heartbeat
 func (g *GeminiApi) Heartbeat() (GenericResponse, error) {
 
-	url := g.url + HEARTBEAT_URL
+	url := g.url + HEARTBEAT_URI
 	params := requestParams{
-		"request": HEARTBEAT_URL,
+		"request": HEARTBEAT_URI,
 		"nonce":   getNonce(),
 	}
 
@@ -213,9 +213,9 @@ func (g *GeminiApi) Heartbeat() (GenericResponse, error) {
 // Balances
 func (g *GeminiApi) Balances() ([]FundBalance, error) {
 
-	url := g.url + BALANCES_URL
+	url := g.url + BALANCES_URI
 	params := requestParams{
-		"request": BALANCES_URL,
+		"request": BALANCES_URI,
 		"nonce":   getNonce(),
 	}
 
@@ -234,7 +234,7 @@ func (g *GeminiApi) Balances() ([]FundBalance, error) {
 // New Deposit Address
 func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddress, error) {
 
-	path := NEW_DEPOSIT_ADDRESS_URL + currency + "/newAddress"
+	path := NEW_DEPOSIT_ADDRESS_URI + currency + "/newAddress"
 	url := g.url + path
 	params := requestParams{
 		"request": path,
@@ -257,7 +257,7 @@ func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddress, e
 // Withdraw Crypto Funds
 func (g *GeminiApi) WithdrawFunds(currency, address string, amount float64) (WithdrawFundsResult, error) {
 
-	path := WITHDRAW_FUNDS_URL + currency
+	path := WITHDRAW_FUNDS_URI + currency
 	url := g.url + path
 	params := requestParams{
 		"request": path,

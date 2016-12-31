@@ -8,7 +8,7 @@ import (
 // Symbols
 func (g *GeminiApi) Symbols() ([]string, error) {
 
-	url := g.url + SYMBOLS_URL
+	url := g.url + SYMBOLS_URI
 
 	var symbols []string
 
@@ -25,7 +25,7 @@ func (g *GeminiApi) Symbols() ([]string, error) {
 // Ticker
 func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
 
-	url := g.url + TICKER_URL + symbol
+	url := g.url + TICKER_URI + symbol
 
 	var ticker Ticker
 
@@ -42,7 +42,7 @@ func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
 // Order Book
 func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
-	url := g.url + BOOK_URL + symbol
+	url := g.url + BOOK_URI + symbol
 	params := requestParams{
 		"limit_bids": strconv.Itoa(limitBids),
 		"limit_asks": strconv.Itoa(limitAsks),
@@ -63,7 +63,7 @@ func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, er
 // Trades
 func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
 
-	url := g.url + TRADES_URL + symbol
+	url := g.url + TRADES_URI + symbol
 	params := requestParams{
 		"since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),
@@ -85,7 +85,7 @@ func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeB
 // Current Auction
 func (g *GeminiApi) CurrentAuction(symbol string) (CurrentAuction, error) {
 
-	url := g.url + AUCTION_URL + symbol
+	url := g.url + AUCTION_URI + symbol
 
 	var auction CurrentAuction
 
@@ -102,7 +102,7 @@ func (g *GeminiApi) CurrentAuction(symbol string) (CurrentAuction, error) {
 // Auction History
 func (g *GeminiApi) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
 
-	url := g.url + AUCTION_URL + symbol + "/history"
+	url := g.url + AUCTION_URI + symbol + "/history"
 	params := requestParams{
 		"since":                 strconv.Itoa(int(since)),
 		"limit_auction_results": strconv.Itoa(limit),
