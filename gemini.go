@@ -97,7 +97,7 @@ type Order struct {
 	Price             float64 `json:",string"`
 	Side              string  `json:"side"`
 	Type              string  `json:"type"`
-	Timestamp         uint64  `json:"timestampms"`
+	Timestamp         int64   `json:"timestampms"`
 	IsLive            bool    `json:"is_live"`
 	IsCancelled       bool    `json:"is_cancelled"`
 	IsHidden          bool    `json:"is_hidden"`
@@ -114,7 +114,7 @@ type Trade struct {
 	Exchange      string  `json:"exchange"`
 	Price         float64 `json:",string"`
 	Amount        float64 `json:",string"`
-	Timestamp     uint64  `json:"timestampms"`
+	Timestamp     int64   `json:"timestampms"`
 	Type          string  `json:"type"`
 	Aggressor     bool    `json:"aggressor"`
 	FeeCurrency   string  `json:"fee_currency"`
@@ -135,7 +135,7 @@ type TickerVolume struct {
 	ETH       float64 `json:"ETH,string"`
 	USD       float64 `json:"USD,string"`
 	Last      float64 `json:"last,string"`
-	Timestamp uint64  `json:"timestamp"`
+	Timestamp int64   `json:"timestamp"`
 }
 
 type TradeVolume struct {
@@ -171,7 +171,7 @@ type BookEntry struct {
 }
 
 type CurrentAuction struct {
-	ClosedUntil                  uint64  `json:"closed_until_ms"`
+	ClosedUntil                  int64   `json:"closed_until_ms"`
 	LastAuctionEid               Id      `json:"last_auction_eid"`
 	LastAuctionPrice             float64 `json:"last_auction_price,string"`
 	LastAuctionQuantity          float64 `json:"last_auction_quantity,string"`
@@ -181,12 +181,12 @@ type CurrentAuction struct {
 	MostRecentIndicativeQuantity float64 `json:"most_recent_indicative_quantity,string"`
 	MostRecentHighestBidPrice    float64 `json:"most_recent_highest_bid_price,string"`
 	MostRecentLowestAskPrice     float64 `json:"most_recent_lowest_ask_price,string"`
-	NextUpdate                   uint64  `json:"next_update_ms"`
-	NextAuction                  uint64  `json:"next_auction_ms"`
+	NextUpdate                   int64   `json:"next_update_ms"`
+	NextAuction                  int64   `json:"next_auction_ms"`
 }
 
 type Auction struct {
-	Timestamp       uint64  `json:"timestampms"`
+	Timestamp       int64   `json:"timestampms"`
 	AuctionId       Id      `json:"auction_id"`
 	Eid             Id      `json:"eid"`
 	EventType       string  `json:"event_type"`
