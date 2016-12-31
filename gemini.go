@@ -235,9 +235,9 @@ type requestHeaders struct {
 	signature string
 }
 
-// requestParams contain the values past to GET and POST requests. For POST
-// requests the requestParams are used to generate requestHeaders, while for
-// GET requests it is used to generate the query params.
+// requestParams contain the param values passed to GET and POST requests. For
+// POST requests the requestParams are used to generate requestHeaders, while
+// for GET requests it is used to generate the query params.
 type requestParams map[string]interface{}
 
 // internal functions
