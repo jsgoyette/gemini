@@ -215,7 +215,7 @@ type FundBalance struct {
 	AvailableForWithdrawal float64 `json:"availableForWithdrawal,string"`
 }
 
-type DepositAddressResult struct {
+type DepositAddress struct {
 	Currency string `json:"currency"`
 	Address  string `json:"address"`
 	Label    string `json:"label"`

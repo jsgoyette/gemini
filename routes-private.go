@@ -149,6 +149,7 @@ func (g *GeminiApi) CancelOrder(orderId string) (Order, error) {
 
 // Cancel All
 func (g *GeminiApi) CancelAll() (CancelResult, error) {
+
 	url := g.url + CANCEL_ALL_URL
 	params := requestParams{
 		"request": CANCEL_ALL_URL,
@@ -169,6 +170,7 @@ func (g *GeminiApi) CancelAll() (CancelResult, error) {
 
 // Cancel Session
 func (g *GeminiApi) CancelSession() (GenericResponse, error) {
+
 	url := g.url + CANCEL_SESSION_URL
 	params := requestParams{
 		"request": CANCEL_SESSION_URL,
@@ -230,7 +232,7 @@ func (g *GeminiApi) Balances() ([]FundBalance, error) {
 }
 
 // New Deposit Address
-func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddressResult, error) {
+func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddress, error) {
 
 	path := NEW_DEPOSIT_ADDRESS_URL + currency + "/newAddress"
 	url := g.url + path
@@ -240,7 +242,7 @@ func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddressRes
 		"label":   label,
 	}
 
-	var res DepositAddressResult
+	var res DepositAddress
 
 	body, err := g.request("POST", url, params, nil)
 	if err != nil {
