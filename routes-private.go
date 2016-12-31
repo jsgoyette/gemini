@@ -6,7 +6,7 @@ import (
 )
 
 // Past Trades
-func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
+func (g *GeminiApi) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
 
 	url := g.url + PAST_TRADES_URL
 
@@ -31,7 +31,7 @@ func (g *GeminiAPI) PastTrades(symbol string, limitTrades int, timestamp int64) 
 }
 
 // Trade Volume
-func (g *GeminiAPI) TradeVolume() ([][]TradeVolume, error) {
+func (g *GeminiApi) TradeVolume() ([][]TradeVolume, error) {
 
 	url := g.url + TRADE_VOLUME_URL
 	params := requestParams{
@@ -52,7 +52,7 @@ func (g *GeminiAPI) TradeVolume() ([][]TradeVolume, error) {
 }
 
 // Active Orders
-func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
+func (g *GeminiApi) ActiveOrders() ([]Order, error) {
 
 	url := g.url + ACTIVE_ORDERS_URL
 	params := requestParams{
@@ -73,7 +73,7 @@ func (g *GeminiAPI) ActiveOrders() ([]Order, error) {
 }
 
 // Order Status
-func (g *GeminiAPI) OrderStatus(orderId string) (Order, error) {
+func (g *GeminiApi) OrderStatus(orderId string) (Order, error) {
 
 	url := g.url + ORDER_STATUS_URL
 	params := requestParams{
@@ -95,7 +95,7 @@ func (g *GeminiAPI) OrderStatus(orderId string) (Order, error) {
 }
 
 // New Order
-func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
+func (g *GeminiApi) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
 
 	url := g.url + NEW_ORDER_URL
 	params := requestParams{
@@ -126,7 +126,7 @@ func (g *GeminiAPI) NewOrder(symbol, clientOrderId string, amount, price float64
 }
 
 // Cancel Order
-func (g *GeminiAPI) CancelOrder(orderId string) (Order, error) {
+func (g *GeminiApi) CancelOrder(orderId string) (Order, error) {
 
 	url := g.url + CANCEL_ORDER_URL
 	params := requestParams{
@@ -148,7 +148,7 @@ func (g *GeminiAPI) CancelOrder(orderId string) (Order, error) {
 }
 
 // Cancel All
-func (g *GeminiAPI) CancelAll() (CancelResult, error) {
+func (g *GeminiApi) CancelAll() (CancelResult, error) {
 	url := g.url + CANCEL_ALL_URL
 	params := requestParams{
 		"request": CANCEL_ALL_URL,
@@ -168,7 +168,7 @@ func (g *GeminiAPI) CancelAll() (CancelResult, error) {
 }
 
 // Cancel Session
-func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
+func (g *GeminiApi) CancelSession() (GenericResponse, error) {
 	url := g.url + CANCEL_SESSION_URL
 	params := requestParams{
 		"request": CANCEL_SESSION_URL,
@@ -188,7 +188,7 @@ func (g *GeminiAPI) CancelSession() (GenericResponse, error) {
 }
 
 // Heartbeat
-func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
+func (g *GeminiApi) Heartbeat() (GenericResponse, error) {
 
 	url := g.url + HEARTBEAT_URL
 	params := requestParams{
@@ -209,7 +209,7 @@ func (g *GeminiAPI) Heartbeat() (GenericResponse, error) {
 }
 
 // Balances
-func (g *GeminiAPI) Balances() ([]FundBalance, error) {
+func (g *GeminiApi) Balances() ([]FundBalance, error) {
 
 	url := g.url + BALANCES_URL
 	params := requestParams{
@@ -230,7 +230,7 @@ func (g *GeminiAPI) Balances() ([]FundBalance, error) {
 }
 
 // New Deposit Address
-func (g *GeminiAPI) NewDepositAddress(currency, label string) (DepositAddressResult, error) {
+func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddressResult, error) {
 
 	path := NEW_DEPOSIT_ADDRESS_URL + currency + "/newAddress"
 	url := g.url + path
@@ -253,7 +253,7 @@ func (g *GeminiAPI) NewDepositAddress(currency, label string) (DepositAddressRes
 }
 
 // Withdraw Crypto Funds
-func (g *GeminiAPI) WithdrawFunds(currency, address string, amount float64) (WithdrawFundsResult, error) {
+func (g *GeminiApi) WithdrawFunds(currency, address string, amount float64) (WithdrawFundsResult, error) {
 
 	path := WITHDRAW_FUNDS_URL + currency
 	url := g.url + path

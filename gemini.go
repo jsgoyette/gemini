@@ -41,19 +41,19 @@ const (
 	WITHDRAW_FUNDS_URL      = "/v1/withdraw/"
 )
 
-type GeminiAPI struct {
+type GeminiApi struct {
 	url    string
 	key    string
 	secret string
 }
 
-func New(live bool, key, secret string) *GeminiAPI {
+func New(live bool, key, secret string) *GeminiApi {
 	var url string
 	if url = SANDBOX_URL; live == true {
 		url = BASE_URL
 	}
 
-	return &GeminiAPI{url: url, key: key, secret: secret}
+	return &GeminiApi{url: url, key: key, secret: secret}
 }
 
 type ApiError struct {
@@ -242,7 +242,7 @@ func getNonce() int64 {
 }
 
 // internal methods
-func (g *GeminiAPI) prepPayload(req *requestParams) *requestHeaders {
+func (g *GeminiApi) prepPayload(req *requestParams) *requestHeaders {
 
 	reqStr, _ := json.Marshal(req)
 	payload := base64.StdEncoding.EncodeToString([]byte(reqStr))
@@ -259,7 +259,7 @@ func (g *GeminiAPI) prepPayload(req *requestParams) *requestHeaders {
 	}
 }
 
-func (g *GeminiAPI) request(verb, url string, postParams, getParams requestParams) ([]byte, error) {
+func (g *GeminiApi) request(verb, url string, postParams, getParams requestParams) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
