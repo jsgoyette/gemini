@@ -227,21 +227,30 @@ type WithdrawFundsResult struct {
 	TxHash      string  `json:"txHash"`
 }
 
-// internal types
+// requestHeaders contains the values to be included in POST headers, according
+// to Gemini specification
 type requestHeaders struct {
 	key       string
 	payload   string
 	signature string
 }
 
+// requestParams contain the values past to GET and POST requests. For POST
+// requests the requestParams are used to generate requestHeaders, while for
+// GET requests it is used to generate the query params.
 type requestParams map[string]interface{}
 
 // internal functions
+
 func getNonce() int64 {
 	return time.Now().UnixNano()
 }
 
 // internal methods
+
+// prepPayload handles the conversion of post parameters into headers formatted
+// according to Gemini specification. Resulting headers include the API key,
+// the signature and the encrypted payload.
 func (g *GeminiApi) prepPayload(req *requestParams) *requestHeaders {
 
 	reqStr, _ := json.Marshal(req)
@@ -259,6 +268,7 @@ func (g *GeminiApi) prepPayload(req *requestParams) *requestHeaders {
 	}
 }
 
+// request makes the HTTP request to Gemini and handles any returned errors
 func (g *GeminiApi) request(verb, url string, postParams, getParams requestParams) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
