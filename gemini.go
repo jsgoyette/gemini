@@ -56,20 +56,25 @@ func New(live bool, key, secret string) *GeminiAPI {
 	return &GeminiAPI{url: url, key: key, secret: secret}
 }
 
-type GeminiError struct {
+type ApiError struct {
 	Reason  string
 	Message string
 }
 
-func (e *GeminiError) Error() string {
+func (e *ApiError) Error() string {
 	return fmt.Sprintf("[%v] %v", e.Reason, e.Message)
+}
+
+type GenericResponse struct {
+	Result string
+	ApiError
 }
 
 type Id string
 
-// custom Unmarshal since Gemini returns array of ints instead of strings in
-// the CancelAll response, and thus type needs to handle unmarshalling from
-// both string and int json types
+// Id has a custom Unmarshal since it needs to handle unmarshalling from both
+// string and int json types. This package takes the position that throughout
+// ids should be strings and converted from json into strings where needed.
 func (id *Id) UnmarshalJSON(b []byte) error {
 
 	if len(b) > 0 && b[0] == '"' {
@@ -192,12 +197,6 @@ type Auction struct {
 	LowestAskPrice  float64 `json:"lowest_ask_price,string"`
 }
 
-type GenericResponse struct {
-	Result  string
-	Reason  string
-	Message string
-}
-
 type CancelResult struct {
 	GenericResponse
 	Details CancelResultDetails `json:"details"`
@@ -299,14 +298,12 @@ func (g *GeminiAPI) request(verb, url string, postParams, getParams requestParam
 	// fmt.Println("response Headers:", resp.Header)
 	// fmt.Println("response Body:", string(body))
 
-	// check for Gemini error
+	// check for error from Gemini
 	var res GenericResponse
+
 	json.Unmarshal(body, &res)
 	if res.Result == "error" {
-		return nil, &GeminiError{
-			Reason:  res.Reason,
-			Message: res.Message,
-		}
+		return nil, &res.ApiError
 	}
 
 	return body, nil
