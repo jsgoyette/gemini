@@ -14,8 +14,10 @@ import (
 )
 
 const (
-	BASE_URL    = "https://api.gemini.com"
-	SANDBOX_URL = "https://api.sandbox.gemini.com"
+	BASE_URL       = "https://api.gemini.com"
+	SANDBOX_URL    = "https://api.sandbox.gemini.com"
+	WS_BASE_URL    = "wss://api.gemini.com"
+	WS_SANDBOX_URL = "wss://api.sandbox.gemini.com"
 
 	// public
 	SYMBOLS_URI = "/v1/symbols"
@@ -39,6 +41,10 @@ const (
 	BALANCES_URI            = "/v1/balances"
 	NEW_DEPOSIT_ADDRESS_URI = "/v1/deposit/"
 	WITHDRAW_FUNDS_URI      = "/v1/withdraw/"
+
+	// websockets
+	ORDER_EVENTS_URI = "/v1/order/events"
+	MARKET_DATA_URI  = "/v1/marketdata/"
 )
 
 type GeminiApi struct {
