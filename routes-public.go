@@ -43,7 +43,7 @@ func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
 func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
 	url := g.url + BOOK_URI + symbol
-	params := requestParams{
+	params := map[string]interface{}{
 		"limit_bids": strconv.Itoa(limitBids),
 		"limit_asks": strconv.Itoa(limitAsks),
 	}
@@ -64,7 +64,7 @@ func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, er
 func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
 
 	url := g.url + TRADES_URI + symbol
-	params := requestParams{
+	params := map[string]interface{}{
 		"since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),
 		"include_breaks": strconv.FormatBool(includeBreaks),
@@ -103,7 +103,7 @@ func (g *GeminiApi) CurrentAuction(symbol string) (CurrentAuction, error) {
 func (g *GeminiApi) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
 
 	url := g.url + AUCTION_URI + symbol + "/history"
-	params := requestParams{
+	params := map[string]interface{}{
 		"since":                 strconv.Itoa(int(since)),
 		"limit_auction_results": strconv.Itoa(limit),
 		"include_indicative":    strconv.FormatBool(includeIndicative),

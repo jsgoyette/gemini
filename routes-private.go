@@ -10,9 +10,9 @@ func (g *GeminiApi) PastTrades(symbol string, limitTrades int, timestamp int64) 
 
 	url := g.url + PAST_TRADES_URI
 
-	params := requestParams{
+	params := map[string]interface{}{
 		"request":      PAST_TRADES_URI,
-		"nonce":        getNonce(),
+		"nonce":        Nonce(),
 		"symbol":       symbol,
 		"limit_trades": limitTrades,
 		"timestamp":    timestamp,
@@ -34,9 +34,9 @@ func (g *GeminiApi) PastTrades(symbol string, limitTrades int, timestamp int64) 
 func (g *GeminiApi) TradeVolume() ([][]TradeVolume, error) {
 
 	url := g.url + TRADE_VOLUME_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": TRADE_VOLUME_URI,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 	}
 
 	var volumes [][]TradeVolume
@@ -55,9 +55,9 @@ func (g *GeminiApi) TradeVolume() ([][]TradeVolume, error) {
 func (g *GeminiApi) ActiveOrders() ([]Order, error) {
 
 	url := g.url + ACTIVE_ORDERS_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": ACTIVE_ORDERS_URI,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 	}
 
 	var orders []Order
@@ -76,9 +76,9 @@ func (g *GeminiApi) ActiveOrders() ([]Order, error) {
 func (g *GeminiApi) OrderStatus(orderId string) (Order, error) {
 
 	url := g.url + ORDER_STATUS_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request":  ORDER_STATUS_URI,
-		"nonce":    getNonce(),
+		"nonce":    Nonce(),
 		"order_id": orderId,
 	}
 
@@ -98,9 +98,9 @@ func (g *GeminiApi) OrderStatus(orderId string) (Order, error) {
 func (g *GeminiApi) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
 
 	url := g.url + NEW_ORDER_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request":         NEW_ORDER_URI,
-		"nonce":           getNonce(),
+		"nonce":           Nonce(),
 		"client_order_id": clientOrderId,
 		"symbol":          symbol,
 		"amount":          strconv.FormatFloat(amount, 'f', -1, 64),
@@ -129,9 +129,9 @@ func (g *GeminiApi) NewOrder(symbol, clientOrderId string, amount, price float64
 func (g *GeminiApi) CancelOrder(orderId string) (Order, error) {
 
 	url := g.url + CANCEL_ORDER_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request":  CANCEL_ORDER_URI,
-		"nonce":    getNonce(),
+		"nonce":    Nonce(),
 		"order_id": orderId,
 	}
 
@@ -151,9 +151,9 @@ func (g *GeminiApi) CancelOrder(orderId string) (Order, error) {
 func (g *GeminiApi) CancelAll() (CancelResult, error) {
 
 	url := g.url + CANCEL_ALL_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": CANCEL_ALL_URI,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 	}
 
 	var res CancelResult
@@ -172,9 +172,9 @@ func (g *GeminiApi) CancelAll() (CancelResult, error) {
 func (g *GeminiApi) CancelSession() (GenericResponse, error) {
 
 	url := g.url + CANCEL_SESSION_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": CANCEL_SESSION_URI,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 	}
 
 	var res GenericResponse
@@ -193,9 +193,9 @@ func (g *GeminiApi) CancelSession() (GenericResponse, error) {
 func (g *GeminiApi) Heartbeat() (GenericResponse, error) {
 
 	url := g.url + HEARTBEAT_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": HEARTBEAT_URI,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 	}
 
 	var res GenericResponse
@@ -214,9 +214,9 @@ func (g *GeminiApi) Heartbeat() (GenericResponse, error) {
 func (g *GeminiApi) Balances() ([]FundBalance, error) {
 
 	url := g.url + BALANCES_URI
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": BALANCES_URI,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 	}
 
 	var balances []FundBalance
@@ -236,9 +236,9 @@ func (g *GeminiApi) NewDepositAddress(currency, label string) (DepositAddress, e
 
 	path := NEW_DEPOSIT_ADDRESS_URI + currency + "/newAddress"
 	url := g.url + path
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": path,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 		"label":   label,
 	}
 
@@ -259,9 +259,9 @@ func (g *GeminiApi) WithdrawFunds(currency, address string, amount float64) (Wit
 
 	path := WITHDRAW_FUNDS_URI + currency
 	url := g.url + path
-	params := requestParams{
+	params := map[string]interface{}{
 		"request": path,
-		"nonce":   getNonce(),
+		"nonce":   Nonce(),
 		"address": address,
 		"amount":  strconv.FormatFloat(amount, 'f', -1, 64),
 	}
