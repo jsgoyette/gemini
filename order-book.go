@@ -16,10 +16,12 @@ func (b *BookEntries) Set(price, amount float64) {
 	pos := b.findByPrice(price)
 
 	if pos == -1 {
-		*b = append(*b, BookEntry{
-			Price:  price,
-			Amount: amount,
-		})
+		if amount != 0 {
+			*b = append(*b, BookEntry{
+				Price:  price,
+				Amount: amount,
+			})
+		}
 	} else {
 		if amount == 0 {
 			*b = append((*b)[:pos], (*b)[pos+1:]...)
