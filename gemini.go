@@ -166,16 +166,6 @@ type TradeVolume struct {
 	SellTakerCount    float64 `json:"sell_taker_count"`
 }
 
-type Book struct {
-	Bids []BookEntry
-	Asks []BookEntry
-}
-
-type BookEntry struct {
-	Price  float64 `json:",string"`
-	Amount float64 `json:",string"`
-}
-
 type CurrentAuction struct {
 	ClosedUntil                  int64   `json:"closed_until_ms"`
 	LastAuctionEid               Id      `json:"last_auction_eid"`
