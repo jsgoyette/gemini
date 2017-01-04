@@ -238,7 +238,7 @@ func Nonce() int64 {
 
 // BuildHeaders handles the conversion of post parameters into headers formatted
 // according to Gemini specification. Resulting headers include the API key,
-// the signature and the hashed payload.
+// the signature and payload.
 func (g *GeminiApi) BuildHeaders(req *map[string]interface{}) *RequestHeaders {
 
 	reqStr, _ := json.Marshal(req)
