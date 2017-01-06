@@ -6,9 +6,9 @@ import (
 )
 
 // Past Trades
-func (g *Api) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
+func (api *Api) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Trade, error) {
 
-	url := g.url + PAST_TRADES_URI
+	url := api.url + PAST_TRADES_URI
 
 	params := map[string]interface{}{
 		"request":      PAST_TRADES_URI,
@@ -20,7 +20,7 @@ func (g *Api) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Tra
 
 	var trades []Trade
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -31,9 +31,9 @@ func (g *Api) PastTrades(symbol string, limitTrades int, timestamp int64) ([]Tra
 }
 
 // Trade Volume
-func (g *Api) TradeVolume() ([][]TradeVolume, error) {
+func (api *Api) TradeVolume() ([][]TradeVolume, error) {
 
-	url := g.url + TRADE_VOLUME_URI
+	url := api.url + TRADE_VOLUME_URI
 	params := map[string]interface{}{
 		"request": TRADE_VOLUME_URI,
 		"nonce":   Nonce(),
@@ -41,7 +41,7 @@ func (g *Api) TradeVolume() ([][]TradeVolume, error) {
 
 	var volumes [][]TradeVolume
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return volumes, err
 	}
@@ -52,9 +52,9 @@ func (g *Api) TradeVolume() ([][]TradeVolume, error) {
 }
 
 // Active Orders
-func (g *Api) ActiveOrders() ([]Order, error) {
+func (api *Api) ActiveOrders() ([]Order, error) {
 
-	url := g.url + ACTIVE_ORDERS_URI
+	url := api.url + ACTIVE_ORDERS_URI
 	params := map[string]interface{}{
 		"request": ACTIVE_ORDERS_URI,
 		"nonce":   Nonce(),
@@ -62,7 +62,7 @@ func (g *Api) ActiveOrders() ([]Order, error) {
 
 	var orders []Order
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -73,9 +73,9 @@ func (g *Api) ActiveOrders() ([]Order, error) {
 }
 
 // Order Status
-func (g *Api) OrderStatus(orderId string) (Order, error) {
+func (api *Api) OrderStatus(orderId string) (Order, error) {
 
-	url := g.url + ORDER_STATUS_URI
+	url := api.url + ORDER_STATUS_URI
 	params := map[string]interface{}{
 		"request":  ORDER_STATUS_URI,
 		"nonce":    Nonce(),
@@ -84,7 +84,7 @@ func (g *Api) OrderStatus(orderId string) (Order, error) {
 
 	var order Order
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return order, err
 	}
@@ -95,9 +95,9 @@ func (g *Api) OrderStatus(orderId string) (Order, error) {
 }
 
 // New Order
-func (g *Api) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
+func (api *Api) NewOrder(symbol, clientOrderId string, amount, price float64, side string, options []string) (Order, error) {
 
-	url := g.url + NEW_ORDER_URI
+	url := api.url + NEW_ORDER_URI
 	params := map[string]interface{}{
 		"request":         NEW_ORDER_URI,
 		"nonce":           Nonce(),
@@ -115,7 +115,7 @@ func (g *Api) NewOrder(symbol, clientOrderId string, amount, price float64, side
 
 	var order Order
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return order, err
 	}
@@ -126,9 +126,9 @@ func (g *Api) NewOrder(symbol, clientOrderId string, amount, price float64, side
 }
 
 // Cancel Order
-func (g *Api) CancelOrder(orderId string) (Order, error) {
+func (api *Api) CancelOrder(orderId string) (Order, error) {
 
-	url := g.url + CANCEL_ORDER_URI
+	url := api.url + CANCEL_ORDER_URI
 	params := map[string]interface{}{
 		"request":  CANCEL_ORDER_URI,
 		"nonce":    Nonce(),
@@ -137,7 +137,7 @@ func (g *Api) CancelOrder(orderId string) (Order, error) {
 
 	var order Order
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return order, err
 	}
@@ -148,9 +148,9 @@ func (g *Api) CancelOrder(orderId string) (Order, error) {
 }
 
 // Cancel All
-func (g *Api) CancelAll() (CancelResult, error) {
+func (api *Api) CancelAll() (CancelResult, error) {
 
-	url := g.url + CANCEL_ALL_URI
+	url := api.url + CANCEL_ALL_URI
 	params := map[string]interface{}{
 		"request": CANCEL_ALL_URI,
 		"nonce":   Nonce(),
@@ -158,7 +158,7 @@ func (g *Api) CancelAll() (CancelResult, error) {
 
 	var res CancelResult
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}
@@ -169,9 +169,9 @@ func (g *Api) CancelAll() (CancelResult, error) {
 }
 
 // Cancel Session
-func (g *Api) CancelSession() (GenericResponse, error) {
+func (api *Api) CancelSession() (GenericResponse, error) {
 
-	url := g.url + CANCEL_SESSION_URI
+	url := api.url + CANCEL_SESSION_URI
 	params := map[string]interface{}{
 		"request": CANCEL_SESSION_URI,
 		"nonce":   Nonce(),
@@ -179,7 +179,7 @@ func (g *Api) CancelSession() (GenericResponse, error) {
 
 	var res GenericResponse
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}
@@ -190,9 +190,9 @@ func (g *Api) CancelSession() (GenericResponse, error) {
 }
 
 // Heartbeat
-func (g *Api) Heartbeat() (GenericResponse, error) {
+func (api *Api) Heartbeat() (GenericResponse, error) {
 
-	url := g.url + HEARTBEAT_URI
+	url := api.url + HEARTBEAT_URI
 	params := map[string]interface{}{
 		"request": HEARTBEAT_URI,
 		"nonce":   Nonce(),
@@ -200,7 +200,7 @@ func (g *Api) Heartbeat() (GenericResponse, error) {
 
 	var res GenericResponse
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}
@@ -211,9 +211,9 @@ func (g *Api) Heartbeat() (GenericResponse, error) {
 }
 
 // Balances
-func (g *Api) Balances() ([]FundBalance, error) {
+func (api *Api) Balances() ([]FundBalance, error) {
 
-	url := g.url + BALANCES_URI
+	url := api.url + BALANCES_URI
 	params := map[string]interface{}{
 		"request": BALANCES_URI,
 		"nonce":   Nonce(),
@@ -221,7 +221,7 @@ func (g *Api) Balances() ([]FundBalance, error) {
 
 	var balances []FundBalance
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return balances, err
 	}
@@ -232,10 +232,10 @@ func (g *Api) Balances() ([]FundBalance, error) {
 }
 
 // New Deposit Address
-func (g *Api) NewDepositAddress(currency, label string) (DepositAddress, error) {
+func (api *Api) NewDepositAddress(currency, label string) (DepositAddress, error) {
 
 	path := NEW_DEPOSIT_ADDRESS_URI + currency + "/newAddress"
-	url := g.url + path
+	url := api.url + path
 	params := map[string]interface{}{
 		"request": path,
 		"nonce":   Nonce(),
@@ -244,7 +244,7 @@ func (g *Api) NewDepositAddress(currency, label string) (DepositAddress, error) 
 
 	var res DepositAddress
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}
@@ -255,10 +255,10 @@ func (g *Api) NewDepositAddress(currency, label string) (DepositAddress, error) 
 }
 
 // Withdraw Crypto Funds
-func (g *Api) WithdrawFunds(currency, address string, amount float64) (WithdrawFundsResult, error) {
+func (api *Api) WithdrawFunds(currency, address string, amount float64) (WithdrawFundsResult, error) {
 
 	path := WITHDRAW_FUNDS_URI + currency
-	url := g.url + path
+	url := api.url + path
 	params := map[string]interface{}{
 		"request": path,
 		"nonce":   Nonce(),
@@ -268,7 +268,7 @@ func (g *Api) WithdrawFunds(currency, address string, amount float64) (WithdrawF
 
 	var res WithdrawFundsResult
 
-	body, err := g.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params, nil)
 	if err != nil {
 		return res, err
 	}

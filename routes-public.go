@@ -6,13 +6,13 @@ import (
 )
 
 // Symbols
-func (g *Api) Symbols() ([]string, error) {
+func (api *Api) Symbols() ([]string, error) {
 
-	url := g.url + SYMBOLS_URI
+	url := api.url + SYMBOLS_URI
 
 	var symbols []string
 
-	body, err := g.request("GET", url, nil, nil)
+	body, err := api.request("GET", url, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -23,13 +23,13 @@ func (g *Api) Symbols() ([]string, error) {
 }
 
 // Ticker
-func (g *Api) Ticker(symbol string) (Ticker, error) {
+func (api *Api) Ticker(symbol string) (Ticker, error) {
 
-	url := g.url + TICKER_URI + symbol
+	url := api.url + TICKER_URI + symbol
 
 	var ticker Ticker
 
-	body, err := g.request("GET", url, nil, nil)
+	body, err := api.request("GET", url, nil, nil)
 	if err != nil {
 		return ticker, err
 	}
@@ -40,9 +40,9 @@ func (g *Api) Ticker(symbol string) (Ticker, error) {
 }
 
 // Order Book
-func (g *Api) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
+func (api *Api) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
-	url := g.url + BOOK_URI + symbol
+	url := api.url + BOOK_URI + symbol
 	params := map[string]interface{}{
 		"limit_bids": strconv.Itoa(limitBids),
 		"limit_asks": strconv.Itoa(limitAsks),
@@ -50,7 +50,7 @@ func (g *Api) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
 	var book Book
 
-	body, err := g.request("GET", url, nil, params)
+	body, err := api.request("GET", url, nil, params)
 	if err != nil {
 		return book, err
 	}
@@ -61,9 +61,9 @@ func (g *Api) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 }
 
 // Trades
-func (g *Api) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
+func (api *Api) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
 
-	url := g.url + TRADES_URI + symbol
+	url := api.url + TRADES_URI + symbol
 	params := map[string]interface{}{
 		"since":          strconv.Itoa(int(since)),
 		"limit_trades":   strconv.Itoa(limitTrades),
@@ -72,7 +72,7 @@ func (g *Api) Trades(symbol string, since int64, limitTrades int, includeBreaks 
 
 	var res []Trade
 
-	body, err := g.request("GET", url, nil, params)
+	body, err := api.request("GET", url, nil, params)
 	if err != nil {
 		return nil, err
 	}
@@ -83,13 +83,13 @@ func (g *Api) Trades(symbol string, since int64, limitTrades int, includeBreaks 
 }
 
 // Current Auction
-func (g *Api) CurrentAuction(symbol string) (CurrentAuction, error) {
+func (api *Api) CurrentAuction(symbol string) (CurrentAuction, error) {
 
-	url := g.url + AUCTION_URI + symbol
+	url := api.url + AUCTION_URI + symbol
 
 	var auction CurrentAuction
 
-	body, err := g.request("GET", url, nil, nil)
+	body, err := api.request("GET", url, nil, nil)
 	if err != nil {
 		return auction, err
 	}
@@ -100,9 +100,9 @@ func (g *Api) CurrentAuction(symbol string) (CurrentAuction, error) {
 }
 
 // Auction History
-func (g *Api) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
+func (api *Api) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
 
-	url := g.url + AUCTION_URI + symbol + "/history"
+	url := api.url + AUCTION_URI + symbol + "/history"
 	params := map[string]interface{}{
 		"since":                 strconv.Itoa(int(since)),
 		"limit_auction_results": strconv.Itoa(limit),
@@ -111,7 +111,7 @@ func (g *Api) AuctionHistory(symbol string, since int64, limit int, includeIndic
 
 	var auctions []Auction
 
-	body, err := g.request("GET", url, nil, params)
+	body, err := api.request("GET", url, nil, params)
 	if err != nil {
 		return auctions, err
 	}

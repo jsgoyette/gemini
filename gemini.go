@@ -231,18 +231,18 @@ func Nonce() int64 {
 // BuildHeader handles the conversion of post parameters into headers formatted
 // according to Gemini specification. Resulting headers include the API key,
 // the payload and the signature.
-func (g *Api) BuildHeader(req *map[string]interface{}) http.Header {
+func (api *Api) BuildHeader(req *map[string]interface{}) http.Header {
 
 	reqStr, _ := json.Marshal(req)
 	payload := base64.StdEncoding.EncodeToString([]byte(reqStr))
 
-	mac := hmac.New(sha512.New384, []byte(g.secret))
+	mac := hmac.New(sha512.New384, []byte(api.secret))
 	mac.Write([]byte(payload))
 
 	signature := hex.EncodeToString(mac.Sum(nil))
 
 	header := http.Header{}
-	header.Set("X-GEMINI-APIKEY", g.key)
+	header.Set("X-GEMINI-APIKEY", api.key)
 	header.Set("X-GEMINI-PAYLOAD", payload)
 	header.Set("X-GEMINI-SIGNATURE", signature)
 
@@ -250,7 +250,7 @@ func (g *Api) BuildHeader(req *map[string]interface{}) http.Header {
 }
 
 // request makes the HTTP request to Gemini and handles any returned errors
-func (g *Api) request(verb, url string, postParams, getParams map[string]interface{}) ([]byte, error) {
+func (api *Api) request(verb, url string, postParams, getParams map[string]interface{}) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
@@ -258,7 +258,7 @@ func (g *Api) request(verb, url string, postParams, getParams map[string]interfa
 	}
 
 	if postParams != nil {
-		req.Header = g.BuildHeader(&postParams)
+		req.Header = api.BuildHeader(&postParams)
 	}
 
 	if getParams != nil {
