@@ -236,10 +236,10 @@ func Nonce() int64 {
 	return time.Now().UnixNano()
 }
 
-// BuildHeaders handles the conversion of post parameters into headers formatted
+// BuildHeader handles the conversion of post parameters into headers formatted
 // according to Gemini specification. Resulting headers include the API key,
 // the signature and payload.
-func (g *Api) BuildHeaders(req *map[string]interface{}) *RequestHeaders {
+func (g *Api) BuildHeader(req *map[string]interface{}) *RequestHeaders {
 
 	reqStr, _ := json.Marshal(req)
 	payload := base64.StdEncoding.EncodeToString([]byte(reqStr))
@@ -265,7 +265,7 @@ func (g *Api) request(verb, url string, postParams, getParams map[string]interfa
 	}
 
 	if postParams != nil {
-		headers := g.BuildHeaders(&postParams)
+		headers := g.BuildHeader(&postParams)
 		req.Header.Set("X-GEMINI-APIKEY", headers.ApiKey)
 		req.Header.Set("X-GEMINI-PAYLOAD", headers.Payload)
 		req.Header.Set("X-GEMINI-SIGNATURE", headers.Signature)
