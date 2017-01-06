@@ -6,7 +6,7 @@ import (
 )
 
 // Symbols
-func (g *GeminiApi) Symbols() ([]string, error) {
+func (g *Api) Symbols() ([]string, error) {
 
 	url := g.url + SYMBOLS_URI
 
@@ -23,7 +23,7 @@ func (g *GeminiApi) Symbols() ([]string, error) {
 }
 
 // Ticker
-func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
+func (g *Api) Ticker(symbol string) (Ticker, error) {
 
 	url := g.url + TICKER_URI + symbol
 
@@ -40,7 +40,7 @@ func (g *GeminiApi) Ticker(symbol string) (Ticker, error) {
 }
 
 // Order Book
-func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
+func (g *Api) OrderBook(symbol string, limitBids, limitAsks int) (Book, error) {
 
 	url := g.url + BOOK_URI + symbol
 	params := map[string]interface{}{
@@ -61,7 +61,7 @@ func (g *GeminiApi) OrderBook(symbol string, limitBids, limitAsks int) (Book, er
 }
 
 // Trades
-func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
+func (g *Api) Trades(symbol string, since int64, limitTrades int, includeBreaks bool) ([]Trade, error) {
 
 	url := g.url + TRADES_URI + symbol
 	params := map[string]interface{}{
@@ -83,7 +83,7 @@ func (g *GeminiApi) Trades(symbol string, since int64, limitTrades int, includeB
 }
 
 // Current Auction
-func (g *GeminiApi) CurrentAuction(symbol string) (CurrentAuction, error) {
+func (g *Api) CurrentAuction(symbol string) (CurrentAuction, error) {
 
 	url := g.url + AUCTION_URI + symbol
 
@@ -100,7 +100,7 @@ func (g *GeminiApi) CurrentAuction(symbol string) (CurrentAuction, error) {
 }
 
 // Auction History
-func (g *GeminiApi) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
+func (g *Api) AuctionHistory(symbol string, since int64, limit int, includeIndicative bool) ([]Auction, error) {
 
 	url := g.url + AUCTION_URI + symbol + "/history"
 	params := map[string]interface{}{

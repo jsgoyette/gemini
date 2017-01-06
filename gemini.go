@@ -47,19 +47,19 @@ const (
 	MARKET_DATA_URI  = "/v1/marketdata/"
 )
 
-type GeminiApi struct {
+type Api struct {
 	url    string
 	key    string
 	secret string
 }
 
-func New(live bool, key, secret string) *GeminiApi {
+func New(live bool, key, secret string) *Api {
 	var url string
 	if url = SANDBOX_URL; live == true {
 		url = BASE_URL
 	}
 
-	return &GeminiApi{url: url, key: key, secret: secret}
+	return &Api{url: url, key: key, secret: secret}
 }
 
 type ApiError struct {
@@ -239,7 +239,7 @@ func Nonce() int64 {
 // BuildHeaders handles the conversion of post parameters into headers formatted
 // according to Gemini specification. Resulting headers include the API key,
 // the signature and payload.
-func (g *GeminiApi) BuildHeaders(req *map[string]interface{}) *RequestHeaders {
+func (g *Api) BuildHeaders(req *map[string]interface{}) *RequestHeaders {
 
 	reqStr, _ := json.Marshal(req)
 	payload := base64.StdEncoding.EncodeToString([]byte(reqStr))
@@ -257,7 +257,7 @@ func (g *GeminiApi) BuildHeaders(req *map[string]interface{}) *RequestHeaders {
 }
 
 // request makes the HTTP request to Gemini and handles any returned errors
-func (g *GeminiApi) request(verb, url string, postParams, getParams map[string]interface{}) ([]byte, error) {
+func (g *Api) request(verb, url string, postParams, getParams map[string]interface{}) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
