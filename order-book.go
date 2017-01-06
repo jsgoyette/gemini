@@ -12,6 +12,9 @@ type BookEntry struct {
 	Amount float64 `json:",string"`
 }
 
+// Set updates the entries in the Book. It adds an entry if an entry for the
+// given price is not found, and it updates the entry if it is found. If the
+// amount is 0, it removes the entry altogether.
 func (b *BookEntries) Set(price, amount float64) {
 	pos := b.findByPrice(price)
 
@@ -31,6 +34,7 @@ func (b *BookEntries) Set(price, amount float64) {
 	}
 }
 
+// Lowest returns the lowest priced entry in the list.
 func (b BookEntries) Lowest() BookEntry {
 
 	var lowest float64
@@ -54,6 +58,7 @@ func (b BookEntries) Lowest() BookEntry {
 	return b[index]
 }
 
+// Highest returns the highest priced entry in the list.
 func (b BookEntries) Highest() BookEntry {
 
 	var highest float64
