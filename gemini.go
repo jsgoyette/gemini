@@ -223,14 +223,6 @@ type WithdrawFundsResult struct {
 	Amount      float64 `json:",string"`
 }
 
-// RequestHeaders contains the values to be included in POST headers, according
-// to Gemini specification
-type RequestHeaders struct {
-	ApiKey    string
-	Payload   string
-	Signature string
-}
-
 // Nonce returns a generic nonce based on unix timestamp
 func Nonce() int64 {
 	return time.Now().UnixNano()
@@ -238,8 +230,8 @@ func Nonce() int64 {
 
 // BuildHeader handles the conversion of post parameters into headers formatted
 // according to Gemini specification. Resulting headers include the API key,
-// the signature and payload.
-func (g *Api) BuildHeader(req *map[string]interface{}) *RequestHeaders {
+// the payload and the signature.
+func (g *Api) BuildHeader(req *map[string]interface{}) http.Header {
 
 	reqStr, _ := json.Marshal(req)
 	payload := base64.StdEncoding.EncodeToString([]byte(reqStr))
@@ -249,11 +241,12 @@ func (g *Api) BuildHeader(req *map[string]interface{}) *RequestHeaders {
 
 	signature := hex.EncodeToString(mac.Sum(nil))
 
-	return &RequestHeaders{
-		ApiKey:    g.key,
-		Payload:   payload,
-		Signature: signature,
-	}
+	header := http.Header{}
+	header.Set("X-GEMINI-APIKEY", g.key)
+	header.Set("X-GEMINI-PAYLOAD", payload)
+	header.Set("X-GEMINI-SIGNATURE", signature)
+
+	return header
 }
 
 // request makes the HTTP request to Gemini and handles any returned errors
@@ -265,10 +258,7 @@ func (g *Api) request(verb, url string, postParams, getParams map[string]interfa
 	}
 
 	if postParams != nil {
-		headers := g.BuildHeader(&postParams)
-		req.Header.Set("X-GEMINI-APIKEY", headers.ApiKey)
-		req.Header.Set("X-GEMINI-PAYLOAD", headers.Payload)
-		req.Header.Set("X-GEMINI-SIGNATURE", headers.Signature)
+		req.Header = g.BuildHeader(&postParams)
 	}
 
 	if getParams != nil {
