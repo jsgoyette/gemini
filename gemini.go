@@ -250,23 +250,23 @@ func (api *Api) BuildHeader(req *map[string]interface{}) http.Header {
 }
 
 // request makes the HTTP request to Gemini and handles any returned errors
-func (api *Api) request(verb, url string, postParams, getParams map[string]interface{}) ([]byte, error) {
+func (api *Api) request(verb, url string, params map[string]interface{}) ([]byte, error) {
 
 	req, err := http.NewRequest(verb, url, bytes.NewBuffer([]byte{}))
 	if err != nil {
 		return nil, err
 	}
 
-	if postParams != nil {
-		req.Header = api.BuildHeader(&postParams)
-	}
-
-	if getParams != nil {
-		q := req.URL.Query()
-		for key, val := range getParams {
-			q.Add(key, val.(string))
+	if params != nil {
+		if verb == "GET" {
+			q := req.URL.Query()
+			for key, val := range params {
+				q.Add(key, val.(string))
+			}
+			req.URL.RawQuery = q.Encode()
+		} else {
+			req.Header = api.BuildHeader(&params)
 		}
-		req.URL.RawQuery = q.Encode()
 	}
 
 	client := &http.Client{}

@@ -12,7 +12,7 @@ func (api *Api) Symbols() ([]string, error) {
 
 	var symbols []string
 
-	body, err := api.request("GET", url, nil, nil)
+	body, err := api.request("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func (api *Api) Ticker(symbol string) (Ticker, error) {
 
 	var ticker Ticker
 
-	body, err := api.request("GET", url, nil, nil)
+	body, err := api.request("GET", url, nil)
 	if err != nil {
 		return ticker, err
 	}
@@ -50,7 +50,7 @@ func (api *Api) OrderBook(symbol string, limitBids, limitAsks int) (Book, error)
 
 	var book Book
 
-	body, err := api.request("GET", url, nil, params)
+	body, err := api.request("GET", url, params)
 	if err != nil {
 		return book, err
 	}
@@ -72,7 +72,7 @@ func (api *Api) Trades(symbol string, since int64, limitTrades int, includeBreak
 
 	var res []Trade
 
-	body, err := api.request("GET", url, nil, params)
+	body, err := api.request("GET", url, params)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (api *Api) CurrentAuction(symbol string) (CurrentAuction, error) {
 
 	var auction CurrentAuction
 
-	body, err := api.request("GET", url, nil, nil)
+	body, err := api.request("GET", url, nil)
 	if err != nil {
 		return auction, err
 	}
@@ -111,7 +111,7 @@ func (api *Api) AuctionHistory(symbol string, since int64, limit int, includeInd
 
 	var auctions []Auction
 
-	body, err := api.request("GET", url, nil, params)
+	body, err := api.request("GET", url, params)
 	if err != nil {
 		return auctions, err
 	}

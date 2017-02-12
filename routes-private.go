@@ -20,7 +20,7 @@ func (api *Api) PastTrades(symbol string, limitTrades int, timestamp int64) ([]T
 
 	var trades []Trade
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (api *Api) TradeVolume() ([][]TradeVolume, error) {
 
 	var volumes [][]TradeVolume
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return volumes, err
 	}
@@ -62,7 +62,7 @@ func (api *Api) ActiveOrders() ([]Order, error) {
 
 	var orders []Order
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (api *Api) OrderStatus(orderId string) (Order, error) {
 
 	var order Order
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return order, err
 	}
@@ -115,7 +115,7 @@ func (api *Api) NewOrder(symbol, clientOrderId string, amount, price float64, si
 
 	var order Order
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return order, err
 	}
@@ -137,7 +137,7 @@ func (api *Api) CancelOrder(orderId string) (Order, error) {
 
 	var order Order
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return order, err
 	}
@@ -158,7 +158,7 @@ func (api *Api) CancelAll() (CancelResult, error) {
 
 	var res CancelResult
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return res, err
 	}
@@ -179,7 +179,7 @@ func (api *Api) CancelSession() (GenericResponse, error) {
 
 	var res GenericResponse
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return res, err
 	}
@@ -200,7 +200,7 @@ func (api *Api) Heartbeat() (GenericResponse, error) {
 
 	var res GenericResponse
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return res, err
 	}
@@ -221,7 +221,7 @@ func (api *Api) Balances() ([]FundBalance, error) {
 
 	var balances []FundBalance
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return balances, err
 	}
@@ -244,7 +244,7 @@ func (api *Api) NewDepositAddress(currency, label string) (DepositAddress, error
 
 	var res DepositAddress
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return res, err
 	}
@@ -268,7 +268,7 @@ func (api *Api) WithdrawFunds(currency, address string, amount float64) (Withdra
 
 	var res WithdrawFundsResult
 
-	body, err := api.request("POST", url, params, nil)
+	body, err := api.request("POST", url, params)
 	if err != nil {
 		return res, err
 	}
