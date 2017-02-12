@@ -3,7 +3,7 @@ Utility types and methods to facilitate the use of the Gemini bitcoin exchange R
 
 ## Usage
 
-```
+```golang
 // Initialize
 const (
 	GEMINI_API_KEY    = ""
