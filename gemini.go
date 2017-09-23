@@ -97,17 +97,17 @@ func (id *Id) UnmarshalJSON(b []byte) error {
 }
 
 type Order struct {
-	OrderId           Id     `json:"order_id"`
-	ClientOrderId     string `json:"client_order_id"`
-	Symbol            string
-	Side              string
-	Type              string
+	OrderId           Id      `json:"order_id"`
+	ClientOrderId     string  `json:"client_order_id"`
+	Symbol            string  `json:"symbol"`
+	Side              string  `json:"side"`
+	Type              string  `json:"type"`
 	Timestamp         int64   `json:"timestampms"`
 	IsLive            bool    `json:"is_live"`
 	IsCancelled       bool    `json:"is_cancelled"`
 	IsHidden          bool    `json:"is_hidden"`
 	WasForced         bool    `json:"was_forced"`
-	Price             float64 `json:",string"`
+	Price             float64 `json:"price,string"`
 	ExecutedAmount    float64 `json:"executed_amount,string"`
 	RemainingAmount   float64 `json:"remaining_amount,string"`
 	OriginalAmount    float64 `json:"original_amount,string"`
@@ -115,33 +115,33 @@ type Order struct {
 }
 
 type Trade struct {
-	OrderId       Id    `json:"order_id"`
-	TradeId       Id    `json:"tid"`
-	Timestamp     int64 `json:"timestampms"`
-	Exchange      string
-	Type          string
+	OrderId       Id      `json:"order_id"`
+	TradeId       Id      `json:"tid"`
+	Timestamp     int64   `json:"timestampms"`
+	Exchange      string  `json:"exchange"`
+	Type          string  `json:"type"`
 	FeeCurrency   string  `json:"fee_currency"`
 	FeeAmount     float64 `json:"fee_amount,string"`
-	Amount        float64 `json:",string"`
-	Price         float64 `json:",string"`
+	Amount        float64 `json:"amount,string"`
+	Price         float64 `json:"price,string"`
 	IsAuctionFill bool    `json:"is_auction_fill"`
-	Aggressor     bool
-	Broken        bool
-	Break         string
+	Aggressor     bool    `json:"aggressor"`
+	Broken        bool    `json:"broken"`
+	Break         string  `json:"break"`
 }
 
 type Ticker struct {
-	Bid    float64 `json:",string"`
-	Ask    float64 `json:",string"`
-	Last   float64 `json:",string"`
-	Volume TickerVolume
+	Bid    float64      `json:"bid,string"`
+	Ask    float64      `json:"ask,string"`
+	Last   float64      `json:"last,string"`
+	Volume TickerVolume `json:"volume"`
 }
 
 type TickerVolume struct {
 	BTC       float64 `json:",string"`
 	ETH       float64 `json:",string"`
 	USD       float64 `json:",string"`
-	Timestamp int64
+	Timestamp int64   `json:"timestamp"`
 }
 
 type TradeVolume struct {
@@ -204,23 +204,23 @@ type CancelResultDetails struct {
 }
 
 type FundBalance struct {
-	Type                   string
-	Currency               string
-	Amount                 float64 `json:",string"`
-	Available              float64 `json:",string"`
-	AvailableForWithdrawal float64 `json:",string"`
+	Type                   string  `json:"type"`
+	Currency               string  `json:"currency"`
+	Amount                 float64 `json:"amount,string"`
+	Available              float64 `json:"available,string"`
+	AvailableForWithdrawal float64 `json:"availableForWithdrawal,string"`
 }
 
 type DepositAddress struct {
-	Currency string
-	Address  string
-	Label    string
+	Currency string `json:"currency"`
+	Address  string `json:"address"`
+	Label    string `json:"label"`
 }
 
 type WithdrawFundsResult struct {
-	Destination string
-	TxHash      string
-	Amount      float64 `json:",string"`
+	Destination string  `json:"destination"`
+	TxHash      string  `json:"txHash"`
+	Amount      float64 `json:"amount,string"`
 }
 
 // Nonce returns a generic nonce based on unix timestamp

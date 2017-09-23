@@ -1,15 +1,15 @@
 package gemini
 
 type Book struct {
-	Bids BookEntries
-	Asks BookEntries
+	Bids BookEntries `json:"bids,string"`
+	Asks BookEntries `json:"asks,string"`
 }
 
 type BookEntries []BookEntry
 
 type BookEntry struct {
-	Price  float64 `json:",string"`
-	Amount float64 `json:",string"`
+	Price  float64 `json:"price,string"`
+	Amount float64 `json:"amount,string"`
 }
 
 // Set updates the entries in the Book. It adds an entry if an entry for the

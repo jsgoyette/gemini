@@ -1,25 +1,25 @@
 package gemini
 
 type MarketData struct {
-	Type    string
-	EventId Id
-	Events  []MarketEvent
+	Type    string        `json:"type,string"`
+	EventId Id            `json:"eventId,string"`
+	Events  []MarketEvent `json:"events,string"`
 }
 
 type MarketEvent struct {
-	Type  string
-	Price float64 `json:",string"`
+	Type  string  `json:"type,string"`
+	Price float64 `json:"price,string"`
 
 	// change event
-	Side      string
-	Remaining float64 `json:",string"`
-	Delta     float64 `json:",string"`
-	Reason    string
+	Side      string  `json:"side"`
+	Remaining float64 `json:"remaining,string"`
+	Delta     float64 `json:"delta,string"`
+	Reason    string  `json:"reason"`
 
 	// trade event
 	TradeId   Id      `json:"tid"`
-	Amount    float64 `json:",string"`
-	MakerSide string
+	Amount    float64 `json:"amount,string"`
+	MakerSide string  `json:"makerSide"`
 
 	// auction open event
 	AuctionOpen     int64 `json:"auction_open_ms"`
@@ -39,20 +39,20 @@ type MarketEvent struct {
 }
 
 type OrderEvent struct {
-	Type              string
-	OrderId           Id     `json:"order_id"`
-	EventId           Id     `json:"event_id"`
-	ClientOrderId     string `json:"client_order_id"`
-	ApiSession        string `'json:"api_session"`
-	Symbol            string
-	Side              string
-	Behavior          string
+	Type              string  `json:"type,string"`
+	OrderId           Id      `json:"order_id"`
+	EventId           Id      `json:"event_id"`
+	ClientOrderId     string  `json:"client_order_id"`
+	ApiSession        string  `json:"api_session"`
+	Symbol            string  `json:"symbol"`
+	Side              string  `json:"side"`
+	Behavior          string  `json:"behavior"`
 	OrderType         string  `json:"order_type"`
 	Timestamp         int64   `json:"timestampms"`
 	IsLive            bool    `json:"is_live"`
 	IsCancelled       bool    `json:"is_cancelled"`
 	IsHidden          bool    `json:"is_hidden"`
-	Price             float64 `json:",string"`
+	Price             float64 `json:"price,string"`
 	ExecutedAmount    float64 `json:"executed_amount,string"`
 	RemainingAmount   float64 `json:"remaining_amount,string"`
 	OriginalAmount    float64 `json:"original_amount,string"`
@@ -60,30 +60,30 @@ type OrderEvent struct {
 	TotalSpend        float64 `json:"total_spend,string"`
 
 	// subscription acknowledgement
-	AccountId        Id
-	SymbolFilter     []string
-	ApiSessionFilter []string
-	EventTypeFilter  []string
+	AccountId        Id       `json:"accountId"`
+	SymbolFilter     []string `json:"symbolFilter"`
+	ApiSessionFilter []string `json:"apiSessionFilter"`
+	EventTypeFilter  []string `json:"eventTypeFilter"`
 
 	// heartbeat
-	Sequence int
+	Sequence int    `json:"sequence"`
 	TraceId  string `json:"trace_id"`
 
 	// fill
-	Fill OrderFill
+	Fill OrderFill `json:"fill"`
 
 	// reject / cancel
-	Reason string
+	Reason string `json:"reason"`
 
 	// cancel
 	CancelCommandId string `json:"cancel_command_id"`
 }
 
 type OrderFill struct {
-	TradeId     Id `json:"trade_id"`
-	Liquidity   string
-	Price       float64 `json:",string"`
-	Amount      float64 `json:",string"`
-	Fee         float64 `json:",string"`
+	TradeId     Id      `json:"trade_id"`
+	Liquidity   string  `json:"liquidity"`
+	Price       float64 `json:"price,string"`
+	Amount      float64 `json:"amount,string"`
+	Fee         float64 `json:"fee,string"`
 	FeeCurrency string  `json:"fee_currency"`
 }
