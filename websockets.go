@@ -1,13 +1,13 @@
 package gemini
 
 type MarketData struct {
-	Type    string        `json:"type,string"`
-	EventId Id            `json:"eventId,string"`
-	Events  []MarketEvent `json:"events,string"`
+	Type    string        `json:"type"`
+	EventId Id            `json:"eventId"`
+	Events  []MarketEvent `json:"events"`
 }
 
 type MarketEvent struct {
-	Type  string  `json:"type,string"`
+	Type  string  `json:"type"`
 	Price float64 `json:"price,string"`
 
 	// change event
@@ -39,7 +39,7 @@ type MarketEvent struct {
 }
 
 type OrderEvent struct {
-	Type              string  `json:"type,string"`
+	Type              string  `json:"type"`
 	OrderId           Id      `json:"order_id"`
 	EventId           Id      `json:"event_id"`
 	ClientOrderId     string  `json:"client_order_id"`
